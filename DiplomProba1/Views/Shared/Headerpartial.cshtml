@@ -1,0 +1,62 @@
+﻿<header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid ">
+                    <div class="header_bottom_border">
+                        <div class="space-around align-items-center" style="flex-wrap: nowrap;">
+                            <div class="col-xl-3 col-lg-2">
+                                <div class="logo">
+                                    <a asp-controller="Home" asp-action="Index">
+                                        <img src="~/img/logo1.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            @*<div class="col-xl-6 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="index.html">Главная</a></li>
+                                            <li><a href="jobs.html">Наши водители</a></li>
+                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="candidate.html">Candidates </a></li>
+                                                    <li><a href="job_details.html">job details </a></li>
+                                                    <li><a href="elements.html">elements</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">blog</a></li>
+                                                    <li><a href="single-blog.html">single-blog</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>*@
+                            <div class="col-xl-3 col-lg-3  d-lg-block">
+                                <div class="Appointment">
+                                    @if( Context.Session.GetString("UserId") != null ){
+                                    <div class="phone_num d-xl-block">
+                                        <a class="boxed-btn3" asp-area="" asp-controller="User" asp-action="UserProfile">Профиль</a>
+                                    </div>
+                                }
+                                else {
+                                    <div class="phone_num d-lg-block" style="display:block!important;">
+                                        <a class="boxed-btn3" asp-area="" asp-controller="User" asp-action="Aauthorization">Авторизация</a>
+                                    </div>
+                                    <div class="phone_num d-none d-xl-block">
+                                        <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Registration">Регистрация</a>
+                                    </div>
+                                }
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>

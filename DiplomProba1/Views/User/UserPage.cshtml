@@ -1,0 +1,126 @@
+﻿<div class="job_details_area">
+        <div class="container m-20">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="job_details_header">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb">
+                                    <img class="user-logo" src="@ViewBag.UserInfo.PhotoUser" alt="">
+                                </div>
+                                <div class="jobs_conetent">
+                                    <h4>@ViewBag.UserInfo.Fulname</h4>
+                                    <h4>@ViewBag.UserInfo.Age лет</h4>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i>Рейтинг: @ViewBag.UserInfo.Estimation / 5</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="descript_wrap white-bg">
+                        <div class="single_wrap">
+                            <h4 class="size_24">О себе</h4>
+                            <p class="big-comment-text">@ViewBag.UserInfo.IdCommentTextNavigation.Text</p>
+                        </div>
+                    </div>
+
+                    <div class="descript_wrap job_lists m-20 white-bg" >
+                        <h4>Отзывы о пользоавтеле</h4>
+                        <div class="row">
+                            @if (@ViewBag.CountComments == 0)
+                        {
+                            <div class="max_width text-center">
+                            <h4>Отзывов нет</h4>
+                            </div>
+                        }
+                        @foreach (DiplomProba1.Models.Data.Comment item in @ViewBag.Comments)
+                            {
+                            <div class="col-lg-12 col-md-12">
+                                    <div class="single_jobs white-bg">
+                                        <div class=" d-flex justify-content-between">
+                                            <div class="jobs_left d-flex align-items-center">
+                                                <div class="thumb">
+                                                    <img class="comment_img" src="@item.IduserLeaveReviewNavigation.PhotoUser" alt="">
+                                                </div>
+                                                <div class="jobs_conetent">
+                                                    <a asp-action="UserPage" asp-controller="User" asp-route-id="@item.IduserLeaveReview"><h4>@item.IduserLeaveReviewNavigation.Fulname</h4></a>
+                                                    
+                                                    <div class="links_locat d-flex align-items-center">
+                                                        <div class="location">
+                                                            <p> <i class="fa fa-map-marker"></i> Оценка: @item.Estimation / 5</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="jobs_right">
+                                                <div class="date">
+                                                    <p>Дата отзыва: @item.Date</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment">
+                                           <p class="big-comment-text">@item.IdCommentTextNavigation.Text</p>
+                                        </div>
+                                    </div>
+                            </div>
+                            }
+
+                            
+
+
+                        </div>
+                        
+                    </div>
+                @if (ViewData["InRoute"] != null)
+                {
+                    
+                
+                    <div class="apply_job_form  white-bg">
+                        <h4>Оставить отзыв</h4>
+                        <form  asp-action=AddReviews asp-controller="User"  asp-route-id="@ViewBag.UserInfo.IdUsers">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <input name="estimate" type="number" placeholder="Выша оценка" max="5" min="1" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="input_field">
+                                        <textarea name="commenttext" id="" cols="30" rows="10" placeholder="Текст"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="submit_btn">
+                                        <button class="boxed-btn3 w-100" type="submit">Оставить отзыв</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    }
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="job_sumary">
+                        <div class="summery_header">
+                            <h3>Дополнительно</h3>
+                        </div>
+                        <div class="job_content">
+                            <ul>
+                                <li>Дата регистрации: <span>@ViewBag.UserInfo.DateRegistration</span></li>
+                                <li>Всего поездок: <span>@ViewData["CountRoute"]</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>

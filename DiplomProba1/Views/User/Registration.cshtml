@@ -1,0 +1,243 @@
+﻿@model DiplomProba1.Models.TestImagecs
+
+<div class="descript flex_column">
+
+	
+
+    @if(ViewBag.UserInfo != null)
+	{
+		@*int id,
+
+        string name,
+        string surname,
+        string lastName,
+        string Birthday,
+        string Email,
+        string password,
+        int IdRole,
+        int IdCommentAbout,
+        string commentAbout
+		*@
+
+
+		int id = ViewBag.UserInfo.IdUsers;
+		string name = ViewBag.UserInfo.Name;
+		string surname = ViewBag.UserInfo.Surname;
+		string lastName = ViewBag.UserInfo.Lastname;
+		string Birthday = ViewBag.UserInfo.Birthday.ToString("yyyy-MM-dd");
+		string Email = ViewBag.UserInfo.Email;
+		string Login = ViewBag.UserInfo.Login;
+		string password = ViewBag.UserInfo.Password;
+		int IdRole = ViewBag.UserInfo.IdRole;
+		int IdCommentAbout = ViewBag.UserInfo.IdCommentText;
+		string commentAbout = ViewBag.UserCommentAbout.Text;
+
+		
+		<div class="wed50">
+           
+		@using (Html.BeginForm("EditingProfile" , "User" , FormMethod.Post , new { enctype = "multipart/form-data"})){
+			@Html.AntiForgeryToken()
+            <div class="arande">
+                <input type="hidden" id="id" name="id" value="@id" readonly ><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="Email" value="@Email" required maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required value="@password"  maxlength="45"><br><br>
+            </div >
+            <div class="arande">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required value="@name"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="first_name">SurName:</label>
+                <input type="text" id="surname" name="surname" required value="@surname"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="patronymic">Patronymic:</label>
+                <input type="text" id="patronymic" name="lastName" value="@lastName"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="numer">Номер телефона:</label>
+                <input type="text" id="numer" name="numer" required value="@Login" pattern="[0-9]{10}"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" name="Birthday" value="@Birthday" required max="2006-01-01"><br><br>
+            </div>
+            <div class="arande">
+                <label for="about_me">About me:</label>
+                <input type="hidden" id="IdCommentAbout" value="@IdCommentAbout" name="IdCommentAbout" readonly><br><br>
+                <textarea id="about_me" name="commentAbout">@commentAbout</textarea><br><br>
+            </div>
+
+			<div class="flex_center">
+			<label for="email">Фотография пользователя:</label>
+            <div>
+
+            
+           <a asp-action="UserCropImages"><p>Выбрать фотографию</p> 
+           
+              @if (Context.Session.GetString("UserImage") != null )
+              {
+                        <div class="col-lg-4  main-picture profile-picture">
+                            @{
+                                 string FormatImage(string a)
+                                 {
+                                     switch (a.ToUpper())
+                                     {
+                                         case "IVBOR":
+                                             return "png";
+                                         case "/9J/4":
+                                             return "jpg";
+                                         default:
+                                             return "png";
+                                     }
+                                 }
+
+                                string a = "data:image/+"+FormatImage(@Context.Session.GetString("UserImage").Substring(0, 5)) +";base64," + @Context.Session.GetString("UserImage") ;
+                            } 
+                            <img class="user-logo" src="@a" alt="Profile Picture"/>
+
+                 </div>
+                 
+              }
+              </a>
+              </div>
+                    
+			@*<div class="form-group">
+				<div>
+					@Html.LabelFor(m=>m.NameImage, new {@class="form-label"})
+				</div>
+				<div>
+					@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , accept=".img, .png, .jpeg"})
+				</div>
+			</div>*@
+
+
+           
+
+
+			</div>
+
+
+            <div class="center_gor">
+
+            <input class="boxed-btn3" type="submit" value="Сохранить">
+            </div>
+		
+		}
+		</div>
+		
+	}
+	else
+	{
+		
+		@if(ViewData["EmailTrue"]!=null){
+            <script>alert('Пользователь с таким Email есть')</script>
+        }
+        
+		<h1>Регистрация</h1>
+		<div class="wed50">
+		@using (Html.BeginForm("RegistrationForm" , "User" , FormMethod.Post , new { enctype = "multipart/form-data"})){
+			@Html.AntiForgeryToken()
+			
+
+			
+
+            <div class="arande">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="Email" required  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required  maxlength="45"><br><br>
+            </div >
+            <div class="arande">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="first_name">SurName:</label>
+                <input type="text" id="surname" name="surname" required  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="patronymic">Patronymic:</label>
+                <input type="text" id="patronymic" name="lastName"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="numer">Номер телефона:</label>
+                <input type="text" id="numer" name="numer" required  pattern="[0-9]{10}"  maxlength="45"><br><br>
+            </div>
+            <div class="arande">
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" name="Birthday" required max="2006-01-01" ><br><br>
+            </div>
+            <div class="arande">
+                <label for="about_me">About me:</label>
+                <textarea id="about_me" name="commentAbout"></textarea><br><br>
+            </div>
+
+			<div class="flex_center">
+			<label for="email">Фотография пользователя:</label>
+            <div>
+
+            
+           <a asp-action="UserCropImages"><p>Выбрать фотографию</p> 
+           
+              @if (Context.Session.GetString("UserImage") != null )
+              {
+                        <div class="col-lg-4  main-picture profile-picture">
+                            @{
+                                 string FormatImage(string a)
+                                 {
+                                     switch (a.ToUpper())
+                                     {
+                                         case "IVBOR":
+                                             return "png";
+                                         case "/9J/4":
+                                             return "jpg";
+                                         default:
+                                             return string.Empty;
+                                     }
+                                 }
+
+                                string a = "data:image/+"+FormatImage(@Context.Session.GetString("UserImage").Substring(0, 5)) +";base64," + @Context.Session.GetString("UserImage") ;
+                            } 
+                            <img class="user-logo" src="@a" alt="Profile Picture"/>
+
+                 </div>
+                 
+              }
+              </a>
+              </div>
+                    
+			@*<div class="form-group">
+				<div>
+					@Html.LabelFor(m=>m.NameImage, new {@class="form-label"})
+				</div>
+				<div>
+					@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , accept=".img, .png, .jpeg"})
+				</div>
+			</div>*@
+
+
+           
+
+
+			</div>
+
+
+            <div class="center_gor">
+
+            <input class="boxed-btn3" type="submit" value="Зарегистрироваться">
+            </div>
+		
+		}
+		</div>
+	
+	}
+	
+
+</div>

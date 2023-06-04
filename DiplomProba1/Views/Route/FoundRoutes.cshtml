@@ -1,0 +1,161 @@
+﻿@model DiplomProba1.Models.Data.User;
+
+@{string BeginRoute = null;}
+@{string EndRoute = null;}
+@{string date = null;}
+
+@if (ViewBag.routes != null)
+{
+    BeginRoute = ((DiplomProba1.Models.Data.Route)ViewBag.routes[0]).BeginRoute;
+    EndRoute = ((DiplomProba1.Models.Data.Route)ViewBag.routes[0]).EndRoute;
+    @*date = ((DiplomProba1.Models.Data.Route)ViewBag.routes[0]).DataTimeStart.ToString("yyyy-MM-dd");*@
+}
+<div class="descript">
+ <div class="catagory_area">
+        <div class="container">
+            <form class="row cat_search" asp-action=FoundRoutes asp-controller="Route">
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="text" name="BeginRoute" id="destination_start" value="@ViewBag.BeginRoute" placeholder="Откуда">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="text" name="EndRoute" id="destination_end" value="@ViewBag.EndRoute" placeholder="Куда">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="date" name="date" id="date" placeholder="Выберите дату" value="@ViewBag.DateRoute" min="@ViewBag.DateNow" max="2023-12-12" >
+                    </div>
+                </div>
+
+  
+                <div class="col-lg-3 col-md-12">
+                    <div class="job_btn">
+                        <input class="boxed-btn3" type="submit" value="Поиск">
+                    </div>
+                </div>
+                </form>
+            
+        </div>
+    </div>
+
+        <div class="job_listing_area plus_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+                            <h3>Фильтр</h3>
+                            <form id="FilterForm" asp-action=FoundRoutes asp-controller="Route">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <input type="hidden" name="EndRoute" id="destination_end" value="@EndRoute">
+                                            <input type="hidden" name="BeginRoute" id="destination_start" value="@BeginRoute">
+                                            <input type="hidden" name="date" id="date" placeholder="Выберите дату" value="@ViewBag.DateRoute">
+                                            <input name="all" type="number" placeholder="Количество пассажиров" value="@ViewBag.all" min="1" max="8" pattern="[1-8]{1}">
+                                        </div>
+                                    </div>
+                                    @*<div class="col-lg-12">
+                                        <div class="single_field range_wrap">
+                                            <label>Пол водителя</label>
+                                            <select class="wide">
+                                                <option data-display="Gender">Водитель</option>
+                                                <option value="1">Женщина</option>
+                                                <option value="2">Мужчина</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                </div>
+                            </form>
+                        </div>
+                        @*<div class="range_wrap">
+                            
+                            <div id="slider-range">
+                                <div class="row">
+                                <label>Максимальная цена:</label>
+                                <input type="range" name="rangeInput" min="0" max="100" onchange="updateTextInput(this.value);">
+                            </div>
+                                
+                                <input class="mini_input" type="number" id="textInput" value="" readonly>
+                            </div>
+                            
+                            
+                        </div>*@
+                        <div class="reset_btn">
+                            <button form="FilterForm" class="boxed-btn3 w-100" type="submit">Применить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="recent_joblist_wrap">
+                        <div class="recent_joblist white-bg ">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h4>Сортировка</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="serch_cat d-flex justify-content-end">
+                                        <select form="FilterForm" id="sort" name="sort" class="order_route">
+                                            <option value="1">Рекомендованные</option>
+                                            <option value="2">Дешевые</option>
+                                            <option value="3">Дорогие</option>
+                                            <option value="4">Ближайшие</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="job_lists m-0">
+                        <div class="row">
+                            @if(ViewBag.routes != null){
+                            @foreach (DiplomProba1.Models.Data.Route item in ViewBag.routes)
+                            {
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb">
+                                            <img class="comment_img" src="@item.IdUserNavigation.PhotoUser" alt="">
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser">
+                                                <h4>@item.IdUserNavigation.Fulname</h4>
+                                            </a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
+                                                    <p> <i class="fa fa-map-marker"></i>В: @item.EndRoute </p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i> Дата: @item.DataRoute</p>
+                                                    <p> <i class="fa fa-clock-o"></i> Время: @item.TimeRoute</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i> Мест: @item.CountFreeRoute()</p>
+                                                    <p> <i class="fa fa-clock-o"></i> Цена: @item.Cost ₽</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            <a asp-controller="Route" asp-action="RoutePage" asp-route-count="@ViewBag.all" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

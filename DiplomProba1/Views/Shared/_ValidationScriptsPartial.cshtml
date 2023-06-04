@@ -1,0 +1,133 @@
+﻿
+
+ 
+
+    <script src="~/js/modernizr-3.5.0.min.js"></script>
+
+    
+    
+    
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/jquery-1.12.0.min.js"></script> 
+    
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>             
+    <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.12.0/dist/js/jquery.suggestions.min.js"></script>
+    
+                <script>
+                           
+                    $("#destination_start").suggestions({
+                        token: "8e34e1f82dca1ada6377a86b28a92b71d59e18d3",
+                        type: "ADDRESS",
+                        bounds: "city-settlement",
+                        onSelect: function (suggestion) {
+                            console.log(suggestion);
+                        }
+                    });
+                    $("#destination_end").suggestions({
+                        token: "8e34e1f82dca1ada6377a86b28a92b71d59e18d3",
+                        type: "ADDRESS" ,
+                        bounds: "city-settlement",
+                        onSelect: function (suggestion) {
+                            console.log(suggestion);
+                        }
+                    });
+               
+
+            </script>
+
+            <script> 
+            
+            document.querySelector('button').addEventListener('click', function() {
+  var elementOne = document.getElementById('one');
+  var elementTwo = document.getElementById('two');
+  
+  if (elementOne.classList.contains("hidden")) {
+    elementOne.classList.remove("hidden");
+    elementTwo.classList.add("hidden");
+  } else {
+    elementOne.classList.add("hidden");
+    elementTwo.classList.remove("hidden");
+  }
+})
+            
+            </script>
+
+
+
+            <script type="text/javascript">
+
+    //initialize Croppie
+    var basic = $('#main-cropper').croppie
+    ({
+        viewport: { width: 300, height: 300 },
+        boundary: { width: 500, height: 400 },
+        showZoomer: true,
+        url: '/DefaultImages/Userpng.png',
+        format:'png' //'jpeg'|'png'|'webp'
+    });
+
+
+    //Reading the contents of the specified Blob or File
+    function readFile(input) {
+        if (input.files && input.files[0])
+        {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#main-cropper').croppie('bind', {
+                    url: e.target.result
+                });
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Change Event to Read file content from File input
+    $('#select').on('change', function () { readFile(this); });
+
+
+    // Upload button to Post Cropped Image to Store.
+    $('#btnupload').on('click', function ()
+    {
+        basic.croppie('result', 'blob').then(function (blob)
+        {
+            var formData = new FormData();
+
+            formData.append('filename', 'FileName.png');
+            formData.append('blob', blob);
+            var myAppUrlSettings =
+            {
+                MyUsefulUrl: '@Url.Action("UserCropImages1")'
+            }
+
+            var request = new XMLHttpRequest();
+            request.open('POST', myAppUrlSettings.MyUsefulUrl);
+            request.send(formData);
+            request.onreadystatechange = function () { // Call a function when the state changes.
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
+                {
+                    var response = JSON.parse(request.responseText);
+
+                    if (response.message == "OK")
+                    {
+                        
+                        
+                        alert('Фотография сохранена');
+                        window.location.href = '@Url.Action("Registration")';
+                    }
+
+                    if (response.message == "ERROR")
+                    {
+                        window.location.reload();
+                    }
+                }
+            }
+        });
+    });
+
+</script>

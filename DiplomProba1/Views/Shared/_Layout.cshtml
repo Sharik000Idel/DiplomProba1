@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html >
+<html lang="en">
+
+<head>
+
+
+    @await Html.PartialAsync("_ValidationStaylesPartial")
+
+
+</head>
+
+<body>
+    <div class="page">
+
+    
+   @await Html.PartialAsync("Headerpartial")
+    <main>
+
+        @RenderBody()
+        
+    </main>
+
+
+
+
+
+
+
+    
+    @await Html.PartialAsync("Footerpartial")
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    </div>
+</body>
+
+</html>

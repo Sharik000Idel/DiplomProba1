@@ -1,0 +1,315 @@
+﻿@model DiplomProba1.Models.Data.User;
+
+
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- header-start -->
+    
+    <!-- header-end -->
+
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="single_slider  d-flex align-items-center slider_bg_1">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 col-md-6">
+                        <div class="slider_text">
+                            <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ Поездок</h5>
+                            <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Начни работать с нами</h3>
+                            <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">Мы предоставляем онлайн услуги по созданию и поиску попуток</p>
+                            <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                                <a asp-action="BecomeDriver" asp-controller="User" class="boxed-btn3">Стать водителем</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider_area_end -->
+
+    <!-- catagory_area -->
+    <div class="catagory_area">
+        <div class="container">
+            <form class="row cat_search" asp-action=FoundRoutes asp-controller="Route">
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="text" name="BeginRoute" id="destination_start" placeholder="Откуда">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="text" name="EndRoute" id="destination_end" placeholder="Куда">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="single_input">
+                        <input type="date" name="date" id="date" placeholder="Выберите дату" min="@ViewBag.DateNow" max="2023-12-12" >
+                    </div>
+                </div>
+
+  
+                <div class="col-lg-3 col-md-12">
+                    <div class="job_btn">
+                        <input class="boxed-btn3" type="submit" value="Поиск">
+                    </div>
+                </div>
+                </form>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="popular_search d-flex align-items-center">
+                        <span>Популярные маршруты:</span>
+                        <ul>
+                            <li><a asp-action=FoundRoutes asp-controller="Route" asp-route-BeginRoute="г Уфа" asp-route-EndRoute="г Казань">Уфа & Казань</a></li>
+                            <li><a asp-action=FoundRoutes asp-controller="Route" asp-route-BeginRoute="г Казань" asp-route-EndRoute="г Москва">Казань & Москва</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ catagory_area -->
+
+    <!-- популярный города начало  -->
+    <div class="popular_catagory_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title mb-40">
+                        <h3>Популярные города</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory he-80">
+                        <a ><h4>Уфа</h4></a>
+                        <p> <span>8 /10</span> Красивый город с богатой культурой</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory he-80">
+                        <a ><h4>Казань</h4></a>
+                        <p> <span>9 /10</span> Крупнейший религиозный центр России.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory he-80">
+                        <a ><h4>Москва</h4></a>
+                        <p> <span>7 /10</span> Столица России</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory he-80">
+                        <a ><h4>Санкт-Петербург</h4></a>
+                        <p> <span>8 /10</span> Культурный город Росии</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- популярный города конец  -->
+
+    <!-- новые маршруты начало  -->
+    <div class="job_listing_area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section_title">
+                        <h3>Новые маршруты</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="brouse_job text-right">
+                        <a asp-controller="Route" asp-action="FoundRoutes"  class="boxed-btn4">Посмотреть больше маршрутов</a>
+                    </div>
+                </div>
+            </div>
+            <div class="job_lists">
+                <div class="row">
+                    
+                @foreach (DiplomProba1.Models.Data.Route item in ViewBag.VRoutes)
+                    {
+                        
+                    
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb ">
+                                    <img class="DriverPh" src="@item.IdUserNavigation.PhotoUser" alt="Profile Picture">
+                                </div>
+                                <div class="jobs_conetent">
+                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser"><h4>Водитель: @item.IdUserNavigation.Fulname</h4></a>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
+                                            <p> <i class="fa fa-map-marker"></i>В: @item.EndRoute </p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> Дата: @item.DataRoute</p>
+                                            <p> <i class="fa fa-clock-o"></i> Время: @item.TimeRoute</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> Мест: @item.CountFreeRoute()</p>
+                                            <p> <i class="fa fa-clock-o"></i> Цена: @item.Cost ₽</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                    <a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
+                                </div>
+                                <div class="date">
+                                    <p>Дата размещениия: @item.DateAddedRoude</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- новые маршруты конец  -->
+
+    <!-- лучшие водители начало  -->
+    <div class="featured_candidates_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title text-center mb-40">
+                        <h3>Лучшие водители</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="candidate_active owl-carousel">
+
+                        @foreach (DiplomProba1.Models.Data.User item in ViewBag.VUsers)
+                        {
+                            <div class="single_candidates text-center"> 
+                            <div class="thumb">
+                                <img class="DriverPh" src="@item.PhotoUser" alt="">
+                            </div>
+                            <a asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUsers"> <h4>@item.Name @item.Surname</h4></a>
+                             @*<p><span>130 поездок</span></p>*@
+                            <p><span>@item.Estimation /5</span></p>
+                        </div>
+                        }
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- лучшие водители конец  -->
+
+    <!-- лучшие машины начало  -->
+    @*<div class="top_companies_area">
+        <div class="container">
+            <div class="row align-items-center mb-40">
+                <div class="col-lg-6 col-md-6">
+                    <div class="section_title">
+                        <h3>Премиальные машины</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="brouse_job text-right">
+                        <a href="jobs.html" class="boxed-btn4">Посмотреть больше автомобилей</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                @foreach (DiplomProba1.Models.Data.Car item in @ViewBag.VCars)
+                {
+                     <div class="col-lg-4 col-xl-3 col-md-6">
+                         <div class="single_company">
+                             <div class="thumb">
+                                 <img class="DriverPh" src="@item.CarImageNavigation.Photo" alt="">
+                             </div>
+                             <a href="jobs.html">@item.NameCar</a>
+                             
+                         </div>
+                     </div>
+                }
+                
+                
+            </div>
+        </div>
+    </div>*@
+    <!-- лучшие машины конец  -->
+
+    <!-- Реклама начало  -->
+    <div class="job_searcing_wrap overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 offset-lg-1 col-md-6">
+                    <div class="searching_text">
+                        <h3>Ищите попутку?</h3>
+                        <p>Мы поможем найти лучшего водителя для вас</p>
+                        <a asp-controller="Route" asp-action="FoundRoutes" class="boxed-btn3">Поиск маршрутов</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1 col-md-6">
+                    <div class="searching_text">
+                        <h3>Хотите опубликовать поездку?</h3>
+                        <p>Мы поможем найти лучших попутчиков для вас </p>
+                        <a asp-action="BecomeRoute" asp-controller="User" class="boxed-btn3">Опубликовать поездку</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- реклама конец  -->
+
+    <!-- отзывы начало  -->
+    <div class="testimonial_area  ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title text-center mb-40">
+                        <h3>Отзывы</h3>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="testmonial_active owl-carousel">
+
+                        @foreach (DiplomProba1.Models.Data.Comment item in ViewBag.SiteComment)
+                        {
+                         <div class="single_carousel">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <div class="single_testmonial d-flex align-items-center">
+                                        <div class="thumb">
+                                            <img src="@item.IduserLeaveReviewNavigation.UserImgNavigation.Photo" alt="">
+                                            
+                                        </div>
+                                        <div class="info">
+                                            <p>@item.IdCommentTextNavigation.Text</p>
+                                            <span>@item.IduserLeaveReviewNavigation.Name</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- отзывы конец  -->
+
+

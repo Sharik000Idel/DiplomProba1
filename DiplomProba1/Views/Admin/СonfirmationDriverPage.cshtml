@@ -1,0 +1,40 @@
+﻿
+
+
+<div class="descript">
+<table class="table mar120_40">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Марка авто</th>
+        <th scope="col">Гос. номер</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Фотография</th>
+        <th scope="col">Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach (DiplomProba1.Models.Data.User user in ViewBag.Drivers)
+            {
+                if (user.CarId != null)
+                {
+                    <tr>
+                        <th scope="row">@user.IdUsers</th>
+                        <td><a asp-action="UserPage" asp-controller="User" asp-route-id="@user.IdUsers">@user.Fulname</a></td>
+                        <td>@user.Car.NameCar</td>
+                        <td>@user.Car.GosNumber</td>
+                        <td>@user.Car.IdCommentCarNavigation.Text</td>
+                        <td><img class="car_img" src="@user.Car.CarImageNavigation.Photo"></td>
+                        <td><a asp-action="ResponseDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3" asp-route-status="2">Одобрить</a></td>
+                        <td><a asp-action="ResponseDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3 bg_red" asp-route-status="1">Отказать</a></td>
+                    </tr>
+                }
+                
+        }
+
+      
+      
+    </tbody>
+  </table>
+  </div>

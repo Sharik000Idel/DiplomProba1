@@ -1,0 +1,97 @@
+﻿@model DiplomProba1.Models.TestImagecs
+
+
+<div class="descript flex_column">
+
+
+@if (ViewBag.Car !=null){
+	<div class="wed50">
+	@using (Html.BeginForm("ChangeCarAdd" , "Car" , FormMethod.Post , new { enctype = "multipart/form-data"})){
+			@Html.AntiForgeryToken()
+
+			
+
+				<input type="hidden" id="email" name="id" value=@ViewBag.Car.IdCar readonly ><br><br>
+
+				<div class="arande">
+					<label for="GosNumber">Гос. номер:</label>
+					<input type="text" id="Gosnumber" name="Gosnumber" value=@ViewBag.Car.GosNumber placeholder="A 111 AA 102" required><br><br>
+				 </div>
+
+				 <div class="arande">
+					<label for="NameCar">Название автомобиля:</label>
+					<input type="text" id="Namecar" name="Namecar" value=@ViewBag.Car.NameCar required><br><br>
+				 </div>
+
+				<input type="hidden" id="idtext" name="idtext" value=@ViewBag.Car.IdCommentCar readonly ><br><br>
+
+				<div class="arande">
+					<label for="textCar">Описание авто:</label>
+					<textarea id="textCar" name="textCar">@ViewBag.Car.IdCommentCarNavigation.Text</textarea><br><br>
+				 </div>
+				
+				 <div class="arande">
+					<label for="email">Фотография автомобиля:</label>
+					 <div class="form-group">
+						<div>
+							@Html.LabelFor(m=>m.NameImage, new {@class="form-label"})
+						</div>
+						<div>
+							@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , @accept=".img, .png, .jpeg"})
+						</div>
+					 </div>
+				  </div>
+				  <div class="center_gor">
+					<input class="boxed-btn3" type="submit" value="Сохранить">
+				 </div>
+	}
+	 </div>
+
+	
+}else{
+	<div class="wed50">
+	@using (Html.BeginForm("NewCarAdd" , "Car" , FormMethod.Post , new { enctype = "multipart/form-data"})){
+			@Html.AntiForgeryToken()
+
+			
+
+				<input type="hidden" id="email" name="id" value="" readonly ><br><br>
+
+				 <div class="arande">
+					<label for="GosNumber">Гос. номер:</label>
+					<input type="text" id="Gosnumber" name="Gosnumber" value="" pattern="[A-Z]\s[0-9]{,3}\s[A-Z]{2}\s[0-9]{2,3}" placeholder="A 111 AA 102" required><br><br>
+				 </div>
+
+				 <div class="arande">
+					<label for="NameCar">Название автомобиля:</label>
+					<input type="text" id="Namecar" name="Namecar" value="" required><br><br>
+				</div>
+
+				<div class="arande">
+					<label for="textCar">Описание авто:</label>
+					<textarea id="textCar" name="textCar"></textarea><br><br>
+				</div>
+
+				
+
+				<div class="arande">
+					<div class="form-group">
+						<div>
+							@Html.LabelFor(m=>m.NameImage, new {@class="form-label"})
+						</div>
+						<div>
+							@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , accept=".img, .png, .jpeg"})
+						</div>
+					</div>
+				</div>
+
+				<div class="arande">
+					<input class="boxed-btn3" type="submit" value="Сохранить">
+				</div>
+	}
+
+	</div>
+	
+}
+
+</div>
