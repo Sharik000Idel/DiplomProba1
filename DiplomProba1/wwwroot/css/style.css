@@ -450,7 +450,7 @@ h3 {
   border-radius: 5px;
   text-align: center;
   color: #fff !important;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -482,7 +482,7 @@ h3 {
   border-radius: 5px;
   text-align: center;
   color: #fff !important;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
@@ -522,7 +522,7 @@ h3 {
   -moz-border-radius: 30px;
   border-radius: 30px;
   text-align: center;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -1137,13 +1137,13 @@ h3 {
 .header-area .main-header-area .main-menu ul li a {
   color: #fff;
   font-size: 15px;
-  text-transform: capitalize;
+ /* text-transform: capitalize;*/
   font-weight: 500;
   display: inline-block;
   padding: 35px 0px 35px 0px;
   font-family: "Roboto", sans-serif;
   position: relative;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -2560,7 +2560,7 @@ h3 {
   font-size: 18px;
   color: #fff;
   font-weight: 400;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 /* line 34, ../../Arafath/CL/December/235. Job board/HTML/scss/_bradcam.scss */
@@ -3238,13 +3238,13 @@ h3 {
 .job_listing_area {
   background: #F5F7FA;
   /*padding: 100px 0;*/
-  padding-bottom: 80px;
+  /*padding-bottom: 80px;*/
 }
 
 /* line 4, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
     .job_listing_area.plus_padding {
-        padding-top: 100px;
-        width: 80%;
+        padding-top: 30px;
+        /*width: 80%;*/
     }
 
 @media (max-width: 767px) {
@@ -3360,9 +3360,10 @@ h3 {
 
 /* line 69, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
 .job_listing_area .job_lists .single_jobs .jobs_left .jobs_conetent .links_locat .location p {
-  margin-bottom: 0;
-  font-size: 16px;
-  color: #AAB1B7;
+    margin-bottom: 0;
+    font-size: 16px;
+    white-space: nowrap;
+    color: #AAB1B7;
 }
 
 /* line 73, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
@@ -7397,7 +7398,7 @@ h6 {
   font-size: 20px;
   -webkit-transition: 0.8s;
   transition: 0.8s;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   margin-bottom: 22px;
 }
 
@@ -7646,7 +7647,7 @@ h6 {
 
 
 .DriverPh {
-    width: 100%;
+   /* width: 100%;*/
     border-radius: 30px;
     height: -webkit-fill-available;
 }
@@ -7661,7 +7662,7 @@ h6 {
     flex-direction: column;
     align-items: center;
     padding-top: 100px;
-    min-height: 80vh;
+    min-height: 100vh;
 }
 
     .descript p input {
@@ -7690,6 +7691,16 @@ h6 {
     align-items: center;
 }
 
+@media (max-width: 767px) {
+    /* line 299, ../../Arafath/CL/December/235. Job board/HTML/scss/theme-default.scss */
+    .arande {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap:wrap;
+    }
+}
+
     .arande input {
         height: 40px;
         /* border: 1px solid #E8E8E8; */
@@ -7710,9 +7721,11 @@ h6 {
         width: 100%;
     }
 
-    .arande label {
-        width: 120px;
-    }
+.arande label {
+    width: 140px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
 
 .center_gor {
     display: flex;
@@ -7723,7 +7736,7 @@ h6 {
 .spece_are {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
@@ -7740,12 +7753,16 @@ h6 {
     margin-left: auto;
     margin-right: auto;
 }
-.active a {
+.active>a {
     background: white;
     border-color: #00D363;
 }
 
-.tab-pane{
+.active>.colorgreen {
+    color: #00D363!important;
+}
+
+.tab-pane {
     /*min-width: 700px;*/
 }
 
@@ -7771,7 +7788,7 @@ h6 {
 }
 
 .exit {
-    color: red;
+    background-color:red;
 }
 
 .user-logo {
@@ -7782,7 +7799,7 @@ h6 {
 }
 
 .max_width{
-    width: 100%;
+    width: 100%!important;
 }
 
 .left{
@@ -7915,4 +7932,140 @@ h6 {
 
 .car_img{
     width: 100px;
+}
+
+.padtop-50{
+    padding-top: 50px;
+}
+
+.wid30{
+    width: 30%;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.myflex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.heart {
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #00D363;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    background: #EFFDF5;
+    margin-right: 15px;
+}
+
+.padtop-5 {
+    margin-top: 5px;
+}
+
+.he100 {
+    height: 100%;
+}
+
+.flexwrap{
+    flex-wrap:wrap;
+}
+
+.padleft20{
+    padding-left: 20px;
+}
+
+.width90 {
+    width: 90%;
+}
+
+.minwid150 {
+    min-width: 150px;
+}
+
+.pstyle {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.flex_end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nonecolor {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.pad0{
+    padding: 0px;
+}
+
+
+
+.wid300 {
+    width: 300px;
+}
+
+.padtop20{
+    padding-top: 20px;
+}
+
+.cityselect {
+    width: 100%;
+    padding-right: 5px;
+}
+
+.fontsize20 {
+    font-size: 15px;
+}
+
+.pad020 {
+    padding: 0 30px;
+}
+
+.pad10_20 {
+    padding: 20px 30px;
+}
+
+
+.mbott20 {
+    margin-bottom: 20px;
+}
+
+.content-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.wid700{
+    min-width: 700px;
+}
+
+.register {
+    background-color: transparent;
+}
+
+.pad0 {
+    padding: 0;
+}
+
+.backsilver {
+    background: #F5F7FA;
+}
+
+.myflex-columnend {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }

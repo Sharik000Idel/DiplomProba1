@@ -6,7 +6,7 @@ using DinkToPdf.Contracts;
 
 namespace DiplomProba1.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
        

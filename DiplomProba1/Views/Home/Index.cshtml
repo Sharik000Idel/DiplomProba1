@@ -44,14 +44,20 @@
                         <input type="text" name="EndRoute" id="destination_end" placeholder="Куда">
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="single_input">
+                <div class="col-lg-4 col-md-12">
+                    <div class="d-flex space-between">
+                        <div class="single_input pad0 col-lg-8">
                         <input type="date" name="date" id="date" placeholder="Выберите дату" min="@ViewBag.DateNow" max="2023-12-12" >
                     </div>
+                    <div class="single_input" title="Количество пассажиров">
+                        <input type="number" name="all" id="all" placeholder="" value="1" min="1" max="3" >
+                    </div>
+                    </div>
+                    
                 </div>
 
   
-                <div class="col-lg-3 col-md-12">
+                <div class="col-lg-2 col-md-12">
                     <div class="job_btn">
                         <input class="boxed-btn3" type="submit" value="Поиск">
                     </div>
@@ -63,7 +69,7 @@
                         <span>Популярные маршруты:</span>
                         <ul>
                             <li><a asp-action=FoundRoutes asp-controller="Route" asp-route-BeginRoute="г Уфа" asp-route-EndRoute="г Казань">Уфа & Казань</a></li>
-                            <li><a asp-action=FoundRoutes asp-controller="Route" asp-route-BeginRoute="г Казань" asp-route-EndRoute="г Москва">Казань & Москва</a></li>
+                            @*<li><a asp-action=FoundRoutes asp-controller="Route" asp-route-BeginRoute="г Казань" asp-route-EndRoute="г Москва">Казань & Москва</a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -78,35 +84,23 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section_title mb-40">
-                        <h3>Популярные города</h3>
+                        <h3>Популярные места</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory he-80">
-                        <a ><h4>Уфа</h4></a>
-                        <p> <span>8 /10</span> Красивый город с богатой культурой</p>
+
+                @foreach (var route in DiplomProba1.Models.Data.Route.MorePopularCity())
+                {
+                    <div class="col-lg-4 col-xl-3 col-md-6">
+                        <div class="single_catagory he-80">
+                            <a ><h4>@route.Key</h4></a>
+                            <p> @*<span>8 /10</span>*@ В этот город совершено @route.Count() поездок</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory he-80">
-                        <a ><h4>Казань</h4></a>
-                        <p> <span>9 /10</span> Крупнейший религиозный центр России.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory he-80">
-                        <a ><h4>Москва</h4></a>
-                        <p> <span>7 /10</span> Столица России</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory he-80">
-                        <a ><h4>Санкт-Петербург</h4></a>
-                        <p> <span>8 /10</span> Культурный город Росии</p>
-                    </div>
-                </div>
+                }
+
+               
                 
             </div>
         </div>
@@ -114,7 +108,7 @@
     <!-- популярный города конец  -->
 
     <!-- новые маршруты начало  -->
-    <div class="job_listing_area">
+    <div class="job_listing_area" style="padding-bottom: 80px;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -143,7 +137,7 @@
                                 </div>
                                 <div class="jobs_conetent">
                                     <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser"><h4>Водитель: @item.IdUserNavigation.Fulname</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
+                                    <div class="flexwrap links_locat d-flex align-items-center">
                                         <div class="location">
                                             <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
                                             <p> <i class="fa fa-map-marker"></i>В: @item.EndRoute </p>
@@ -159,7 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="jobs_right">
+                            <div class="jobs_right myflex-columnend">
                                 <div class="apply_now">
                                     @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
                                     <a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>

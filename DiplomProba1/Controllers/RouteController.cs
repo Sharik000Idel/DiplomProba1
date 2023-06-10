@@ -6,7 +6,7 @@ using DinkToPdf.Contracts;
 
 namespace DiplomProba1.Controllers
 {
-    public class RouteController : Controller
+    public class RouteController : BaseController
     {
         private readonly IConverter _converter;
 
@@ -75,19 +75,21 @@ namespace DiplomProba1.Controllers
             if (route.IdUser == Convert.ToInt32(HttpContext.Session.GetString("UserId")))
             {
                 ViewData["UserChekInRoute"] = "Vodetel";
-                DiplomProba1.Models.Data.Route neerRoute = diplomdbContext.Routes.Where(p => p.IdStatusRoute != 3 && us.IdUsers == Convert.ToInt32(HttpContext.Session.GetString("UserId"))).OrderBy(p => p.DataTimeStart).FirstOrDefault();
-
-                if (neerRoute!= null)
+                //DiplomProba1.Models.Data.Route neerRoute = diplomdbContext.Routes.Where(p => p.IdStatusRoute != 3 && us.IdUsers == Convert.ToInt32(HttpContext.Session.GetString("UserId"))).OrderBy(p => p.DataTimeStart).FirstOrDefault();
+                
+                if (route != null)
                 {
-                    if (neerRoute.DataTimeStart > DateTime.Now)
+                    Console.WriteLine("номер рейса"+ route.IdRout);
+                    Console.WriteLine("дата рейса" + route.DataTimeStart);
+                    if (route.DataTimeStart > DateTime.Now)
                     {
                         ViewData["TimeRoute"] = "Вы сможете начать поездку только по достижению запланированного времени";
                     }
-                    if (neerRoute.IdStatusRoute == 1 || neerRoute.IdStatusRoute == 4)
+                    else if (route.IdStatusRoute == 1 || route.IdStatusRoute == 4)
                     {
                         ViewData["InRoute"] = "Начать поездку";
                     }
-                    else if (neerRoute.IdStatusRoute == 2)
+                    else if (route.IdStatusRoute == 2)
                     {
                         ViewData["InRoute"] = "Закончить поездку";
                     }
@@ -127,7 +129,7 @@ namespace DiplomProba1.Controllers
 
         }
 
-        public async Task<IActionResult> CreateNewRoute(string BeginRoute, string EndRoute, DateTime date, int cost, int CountPass, string text)
+        public async Task<IActionResult> CreateNewRoute(string BeginRoute, string EndRoute, DateTime date , string time, int cost, int CountPass, string text)
         {
             diplomdbContext diplomdbContext = new diplomdbContext();
             Commenttext commenttext = new Commenttext
@@ -135,14 +137,19 @@ namespace DiplomProba1.Controllers
                 IdCommentText = diplomdbContext.Commenttexts.OrderBy(o => o.IdCommentText).Last().IdCommentText + 1,
                 Text = text
             };
-
+            Console.WriteLine(time);
+            Console.WriteLine(time.Substring(0, 2)); 
+            Console.WriteLine(time.Substring(3));
+            DateTime dateTime = new DateTime(date.Year, date.Month, date.Day, Convert.ToInt32(time.Substring(0 ,2)), Convert.ToInt32(time.Substring(3)) , 0);
+            Console.WriteLine("Time" + dateTime);
+            Console.WriteLine(date);
             Models.Data.Route route = new Models.Data.Route
             {
                 IdRout = diplomdbContext.Routes.OrderBy(o => o.IdRout).Last().IdRout + 1,
                 IdUser = Convert.ToInt32(HttpContext.Session.GetString("UserId")),
                 BeginRoute = BeginRoute,
                 EndRoute = EndRoute,
-                DataTimeStart = date,
+                DataTimeStart = dateTime,
                 Cost = cost,
                 CountPassagir = CountPass,
                 IdStatusRoute = 1,
@@ -160,26 +167,26 @@ namespace DiplomProba1.Controllers
 
         public IActionResult ViewRoute(string activ)
         {
-            int status = Convert.ToInt32(activ);
+            activ= activ.Trim();
             diplomdbContext diplomdbContext = new diplomdbContext();
             var mySessionValue = HttpContext.Session.GetString("UserId");
 
             //List<DiplomWebsitePoputchici.Models.Data.Userroute> userroutes = diplomdbContext.Userroutes.Where(m => m.IdRoutNavigation.IdUser == Convert.ToInt32(mySessionValue)).ToList();
             List<DiplomProba1.Models.Data.Route> userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == 1 && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
-            if (status == 1)
+            if (activ.ToString() == "1")
             {
-                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == status || p.IdStatusRoute == 4 && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute.ToString() == activ.ToString() || p.IdStatusRoute == 4 && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
             }
-            else if (status == 3)
+            else if (activ.ToString() == "3")
             {
-                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == status && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute.ToString() == activ.ToString() && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
 
             }
-
+            
 
             //List<DiplomProba1.Models.Data.Route> olduserroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == 1 && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
             Console.WriteLine("количество заявок " + userroute.Count());
-            ViewBag.UserRoute = userroute;
+            ViewBag.UserRoute = userroute.OrderBy(p=>p.DataTimeStart);
             return View();
         }
 

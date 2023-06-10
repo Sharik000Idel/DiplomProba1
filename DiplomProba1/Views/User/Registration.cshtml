@@ -1,6 +1,6 @@
 ﻿@model DiplomProba1.Models.TestImagecs
 
-<div class="descript flex_column">
+<div class="descript catagory_area">
 
 	
 
@@ -32,49 +32,60 @@
 		int IdCommentAbout = ViewBag.UserInfo.IdCommentText;
 		string commentAbout = ViewBag.UserCommentAbout.Text;
 
-		
+		<h1>Редактирование</h1>
 		<div class="wed50">
            
-		@using (Html.BeginForm("EditingProfile" , "User" , FormMethod.Post , new { enctype = "multipart/form-data"})){
+		@using (Html.BeginForm("EditingProfile" , "User" , FormMethod.Post , new { enctype = "multipart/form-data" , @class = "s" , @accept=".img, .png, .jpeg"})){
 			@Html.AntiForgeryToken()
+            <input type="hidden" id="id" name="id" value="@id" readonly >
+      
             <div class="arande">
-                <input type="hidden" id="id" name="id" value="@id" readonly ><br><br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="Email" value="@Email" required maxlength="45"><br><br>
+                
+                <label for="email">Электронная почта:</label>
+                <input type="email" id="email" name="Email" value="@Email" required maxlength="45">
             </div>
+          
             <div class="arande">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required value="@password"  maxlength="45"><br><br>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required value="@password"  maxlength="45">
             </div >
+          
             <div class="arande">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required value="@name"  maxlength="45"><br><br>
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required value="@name"  maxlength="45">
             </div>
+          
             <div class="arande">
-                <label for="first_name">SurName:</label>
-                <input type="text" id="surname" name="surname" required value="@surname"  maxlength="45"><br><br>
+                <label for="first_name">Фамилия:</label>
+                <input type="text" id="surname" name="surname" required value="@surname"  maxlength="45">
             </div>
+          
             <div class="arande">
-                <label for="patronymic">Patronymic:</label>
-                <input type="text" id="patronymic" name="lastName" value="@lastName"  maxlength="45"><br><br>
+                <label for="patronymic">Отчество:</label>
+                <input type="text" id="patronymic" name="lastName" value="@lastName"  maxlength="45">
             </div>
+         
             <div class="arande">
                 <label for="numer">Номер телефона:</label>
-                <input type="text" id="numer" name="numer" required value="@Login" pattern="[0-9]{10}"  maxlength="45"><br><br>
+                <input type="text" id="numer" name="numer" required value="@Login" pattern="[0-9]{11}"  maxlength="45">
             </div>
+           
+            
             <div class="arande">
-                <label for="birthday">Birthday:</label>
-                <input type="date" id="birthday" name="Birthday" value="@Birthday" required max="2006-01-01"><br><br>
+                <label for="birthday">Дата рождения:</label>
+                <input type="date" id="birthday" name="Birthday" value="@Birthday" required max="2006-01-01">
             </div>
+            
+            <input type="hidden" id="IdCommentAbout" value="@IdCommentAbout" name="IdCommentAbout" readonly>
+          
             <div class="arande">
-                <label for="about_me">About me:</label>
-                <input type="hidden" id="IdCommentAbout" value="@IdCommentAbout" name="IdCommentAbout" readonly><br><br>
-                <textarea id="about_me" name="commentAbout">@commentAbout</textarea><br><br>
+                <label for="about_me">О себе:</label>
+                <textarea class="max_width" id="about_me" name="commentAbout">@commentAbout</textarea>
             </div>
-
+           
 			<div class="flex_center">
 			<label for="email">Фотография пользователя:</label>
-            <div>
+            <div class="max_width" style="margin-left: 30px;">
 
             
            <a asp-action="UserCropImages"><p>Выбрать фотографию</p> 
@@ -122,9 +133,10 @@
 			</div>
 
 
+            
             <div class="center_gor">
 
-            <input class="boxed-btn3" type="submit" value="Сохранить">
+            <input class="width90 boxed-btn3" type="submit" value="Сохранить">
             </div>
 		
 		}
@@ -147,41 +159,41 @@
 			
 
             <div class="arande">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="Email" required  maxlength="45"><br><br>
+                <label for="email">Электронная почта:</label>
+                <input type="email" id="email" name="Email" required  maxlength="45">
             </div>
             <div class="arande">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required  maxlength="45"><br><br>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required  maxlength="45">
             </div >
             <div class="arande">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required  maxlength="45"><br><br>
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required  maxlength="45">
             </div>
             <div class="arande">
-                <label for="first_name">SurName:</label>
-                <input type="text" id="surname" name="surname" required  maxlength="45"><br><br>
+                <label for="first_name">Фамилия:</label>
+                <input type="text" id="surname" name="surname" required  maxlength="45">
             </div>
             <div class="arande">
-                <label for="patronymic">Patronymic:</label>
-                <input type="text" id="patronymic" name="lastName"  maxlength="45"><br><br>
+                <label for="patronymic">Отчество:</label>
+                <input type="text" id="patronymic" name="lastName"  maxlength="45">
             </div>
             <div class="arande">
                 <label for="numer">Номер телефона:</label>
-                <input type="text" id="numer" name="numer" required  pattern="[0-9]{10}"  maxlength="45"><br><br>
+                <input type="text" id="numer" name="numer" required  pattern="[0-9]{11}"  maxlength="45">
             </div>
             <div class="arande">
-                <label for="birthday">Birthday:</label>
-                <input type="date" id="birthday" name="Birthday" required max="2006-01-01" ><br><br>
+                <label for="birthday">Дата рождения:</label>
+                <input type="date" id="birthday" name="Birthday" required max="2006-01-01" >
             </div>
             <div class="arande">
-                <label for="about_me">About me:</label>
-                <textarea id="about_me" name="commentAbout"></textarea><br><br>
+                <label for="about_me">О себе:</label>
+                <textarea id="about_me" name="commentAbout"></textarea>
             </div>
 
 			<div class="flex_center">
 			<label for="email">Фотография пользователя:</label>
-            <div>
+            <div class="max_width"  style="margin-left: 30px;">
 
             
            <a asp-action="UserCropImages"><p>Выбрать фотографию</p> 
@@ -231,7 +243,7 @@
 
             <div class="center_gor">
 
-            <input class="boxed-btn3" type="submit" value="Зарегистрироваться">
+            <input class="width90 boxed-btn3" type="submit" value="Зарегистрироваться">
             </div>
 		
 		}

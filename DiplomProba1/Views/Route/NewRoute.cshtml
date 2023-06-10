@@ -1,55 +1,59 @@
 ﻿            
 
 <div class="descript catagory_area">
-
-    <div class="container">
+    <h1>Создание нового маршрута</h1>
+    <div class="wed50">
 
  <form class="center_gor row cat_search " asp-action=CreateNewRoute asp-controller="Route">
 
 
-     <div class="col-lg-12 col-md-12">
-                    <div class="single_input pad20">
-                        <label for="destination_start">Откуда</label>
+                    <div class="arande">
+                        <label for="destination_start">Место отправления</label>
+                        <div class="cityselect max_width">
+                            
                         <input type="text" name="BeginRoute" id="destination_start" placeholder="Откуда" required>
+                        </div>
                     </div>
-     </div>
 
      @*<div class="arande single_input">
             <input type="text" name="BeginRoute" id="destination_start" placeholder="Откуда">
       </div>*@
 
-     <div class="col-lg-12 col-md-12">
-                    <div class="single_input pad20">
-                        <label for="EndRoute">Куда</label>
-           <input type="text" name="EndRoute" id="destination_end" placeholder="Куда" required>
-      </div>
-      </div>
+                    <div class="arande">
+                        <label for="EndRoute">Место прибытия</label>
+                        <div class="cityselect max_width">
+                            
+                        <input type="text" name="EndRoute" id="destination_end" placeholder="Куда" required>
+                        </div>
+                    </div>
+     
 
-     <div class="col-lg-12 col-md-12">
-                    <div class="single_input pad20">
+       <div class="arande">
+          <label for="date">Выберите дату:</label>
           <input type="date" name="date" id="date" placeholder="Выберите дату" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required>
       </div>
+
+      <div class="arande">
+          <label for="time">Время:</label>
+          <input type="time" name="time" id="time" placeholder="Укажите время" min="" required>
       </div>
 
-      <div class="col-lg-12 col-md-12">
-                    <div class="single_input pad20">
+                    <div class="arande">
+                        <label for="time">Цена поездки:</label>
           <input type="number" name="Cost" id="date" placeholder="Цена поездки" maxlength="10" required>
       </div>
+
+      <div class="arande">
+        <label for="time">Количество пассажиров:</label>
+          <input type="number" name="CountPass" id="date" placeholder="Количество пассажиров" max="4" required>
       </div>
 
-     <div class="col-lg-12 col-md-12">
-                    <div class="single_input pad20">
-          <input type="number" name="CountPass" id="date" placeholder="Количество пассажиров" max="8" required>
-      </div>
-      </div>
-
-      <div class="col-lg-12 col-md-12">
-          <input class="boxed-btn3" type="submit" value="Создать">
+      <div class="center_gor pad20">
+          <input class="width90 boxed-btn3" type="submit" value="Создать">
       </div>
 
      
     
-     
      
      
      

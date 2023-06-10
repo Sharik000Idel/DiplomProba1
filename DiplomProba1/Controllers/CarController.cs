@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DiplomProba1.Controllers
 {
-    public class CarController : Controller
+    public class CarController : BaseController
     {
         
             public IActionResult UserCar()
@@ -63,7 +63,7 @@ namespace DiplomProba1.Controllers
 
                 int newIdCommentText = diplomdbContext.Commenttexts.ToList().OrderBy(p => p.IdCommentText).Last().IdCommentText + 1;
 
-                Console.WriteLine(diplomdbContext.Cars.Count());
+                Console.WriteLine("количество машин "+ diplomdbContext.Cars.Count());
                 diplomdbContext.Commenttexts.Add(new Commenttext
                 {
                     IdCommentText = newIdCommentText,
@@ -112,10 +112,10 @@ namespace DiplomProba1.Controllers
                 };
                 diplomdbContext.Cars.Add(NewCar);
                 diplomdbContext.Images.Add(newImage);
-                User user = diplomdbContext.Users.First(u => u.IdUsers == Convert.
-                ToInt32(HttpContext.Session.GetString("UserId")));
+                User user = diplomdbContext.Users.First(u => u.IdUsers == Convert.ToInt32(HttpContext.Session.GetString("UserId")));
                 user.CarId = NewCar.IdCar;
-                user.IdRole = 2;
+                user.IdRole = 4;
+                diplomdbContext.Update(user);
                 diplomdbContext.SaveChanges();
                 return RedirectToAction("UserProfile", "User");
             }

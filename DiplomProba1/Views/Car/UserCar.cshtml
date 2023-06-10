@@ -1,33 +1,36 @@
 ﻿@model DiplomProba1.Models.TestImagecs
 
 
-<div class="descript flex_column">
+<div class="descript flex_column" style="
+    padding-top: 200px;
+">
 
 
 @if (ViewBag.Car !=null){
+	<h3>Редактирование авто</h3>
 	<div class="wed50">
 	@using (Html.BeginForm("ChangeCarAdd" , "Car" , FormMethod.Post , new { enctype = "multipart/form-data"})){
 			@Html.AntiForgeryToken()
 
 			
 
-				<input type="hidden" id="email" name="id" value=@ViewBag.Car.IdCar readonly ><br><br>
+				<input type="hidden" id="email" name="id" value=@ViewBag.Car.IdCar readonly >
 
 				<div class="arande">
 					<label for="GosNumber">Гос. номер:</label>
-					<input type="text" id="Gosnumber" name="Gosnumber" value=@ViewBag.Car.GosNumber placeholder="A 111 AA 102" required><br><br>
+					<input type="text" id="Gosnumber" name="Gosnumber" pattern="[A-Z]\s[0-9]{,3}\s[A-Z]{2}\s[0-9]{2,3}" value=@ViewBag.Car.GosNumber placeholder="A 111 AA 102" required>
 				 </div>
 
 				 <div class="arande">
 					<label for="NameCar">Название автомобиля:</label>
-					<input type="text" id="Namecar" name="Namecar" value=@ViewBag.Car.NameCar required><br><br>
+					<input type="text" id="Namecar" name="Namecar" value=@ViewBag.Car.NameCar required>
 				 </div>
 
-				<input type="hidden" id="idtext" name="idtext" value=@ViewBag.Car.IdCommentCar readonly ><br><br>
+				<input type="hidden" id="idtext" name="idtext" value=@ViewBag.Car.IdCommentCar readonly >
 
 				<div class="arande">
 					<label for="textCar">Описание авто:</label>
-					<textarea id="textCar" name="textCar">@ViewBag.Car.IdCommentCarNavigation.Text</textarea><br><br>
+					<textarea id="textCar" name="textCar">@ViewBag.Car.IdCommentCarNavigation.Text</textarea>
 				 </div>
 				
 				 <div class="arande">
@@ -49,27 +52,28 @@
 
 	
 }else{
+	<h3>Добавление автомобиля</h3>
 	<div class="wed50">
 	@using (Html.BeginForm("NewCarAdd" , "Car" , FormMethod.Post , new { enctype = "multipart/form-data"})){
 			@Html.AntiForgeryToken()
 
 			
 
-				<input type="hidden" id="email" name="id" value="" readonly ><br><br>
+				<input type="hidden" id="email" name="id" value="" readonly >
 
 				 <div class="arande">
 					<label for="GosNumber">Гос. номер:</label>
-					<input type="text" id="Gosnumber" name="Gosnumber" value="" pattern="[A-Z]\s[0-9]{,3}\s[A-Z]{2}\s[0-9]{2,3}" placeholder="A 111 AA 102" required><br><br>
+					<input type="text" id="Gosnumber" name="Gosnumber" value="" pattern="[A-Z]\s[0-9]{,3}\s[A-Z]{2}\s[0-9]{2,3}" placeholder="A 111 AA 102" required>
 				 </div>
 
 				 <div class="arande">
-					<label for="NameCar">Название автомобиля:</label>
-					<input type="text" id="Namecar" name="Namecar" value="" required><br><br>
+					<label for="NameCar">Марка автомобиля:</label>
+					<input type="text" id="Namecar" name="Namecar" value="" required>
 				</div>
 
 				<div class="arande">
 					<label for="textCar">Описание авто:</label>
-					<textarea id="textCar" name="textCar"></textarea><br><br>
+					<textarea id="textCar" name="textCar"></textarea>
 				</div>
 
 				
@@ -80,7 +84,7 @@
 							@Html.LabelFor(m=>m.NameImage, new {@class="form-label"})
 						</div>
 						<div>
-							@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , accept=".img, .png, .jpeg"})
+							@Html.EditorFor(m=>m.UserImg, new {@class="form-control" , @accept=".img, .png, .jpeg"})
 						</div>
 					</div>
 				</div>

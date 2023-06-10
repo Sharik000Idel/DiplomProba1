@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DiplomProba1.Controllers
 {
-    public class RequestController : Controller
+    public class RequestController : BaseController
     {
         public IActionResult ViewRequest()
         {
@@ -16,7 +16,7 @@ namespace DiplomProba1.Controllers
 
             //List<DiplomProba1.Models.Data.Route> olduserroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == 1 && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
             Console.WriteLine("количество заявок " + userroute.Count());
-            ViewBag.UserRoute = userroute;
+            ViewBag.UserRoute = userroute.OrderByDescending(p => p.DataTimeStart);
             return View();
         }
 
@@ -24,7 +24,7 @@ namespace DiplomProba1.Controllers
 
         public RedirectToActionResult RequestForRoute(int id ,int? count)
         {
-            if (count == null && count == 0 )
+            if (count == null || count == 0 )
             {
                 count = 1;
             }
@@ -57,6 +57,8 @@ namespace DiplomProba1.Controllers
                 diplomdbContext.Userroutes.First(p => p.IdUser == idUser && p.IdRout == idroute).StatusUserRouteId = idrequest;
                 await diplomdbContext.SaveChangesAsync();
             }
+            //int CountMess = Convert.ToInt32(HttpContext.Session.GetString("CountMess")) - 1;
+            //HttpContext.Session.SetString("CountMess", CountMess.ToString());
             return RedirectToAction("ViewRequest");
 
         }

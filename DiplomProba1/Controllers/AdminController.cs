@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DiplomProba1.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         public IActionResult СonfirmationDriverPage()
         {

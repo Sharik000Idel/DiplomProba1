@@ -1,0 +1,660 @@
+﻿
+<div class="descript job_details_area">
+    <div class="container m-20">
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="job_sumary  white-bg">
+
+                    <div class="product-tab-list mbott20">
+                        <ul class="spece_are" role="tablist">
+
+
+
+                            <li class="col-lg-12 col-md-12 active">
+                                <a class="max_width boxed-btn3 colorgreen" href="#UserInfo" data-toggle="tab">
+                                    
+                                        Моя страница
+                                    
+                                </a>
+                            </li>
+
+                            <li class="col-lg-12 col-md-12">
+                                <a class="max_width boxed-btn3 colorgreen" href="#Route" data-toggle="tab">
+                                    
+                                        Поездки 
+                                </a>
+                            </li>
+
+                            <li class="col-lg-12 col-md-12">
+                                <a class="max_width boxed-btn3 colorgreen" href="#Reviews" data-toggle="tab">
+                                   
+                                        Отзывы
+                                    
+                                </a>
+                            </li>
+
+                            @if (ViewBag.UserInfo.IdRole == 2)
+                            {
+
+
+
+                            <li class="col-lg-12 col-md-12">
+                                <a class="max_width boxed-btn3 colorgreen" href="#UserCar" data-toggle="tab">
+                                    
+                                        Водителям
+                                   
+                                </a>
+                            </li>
+
+
+                            @*<li><a class="navbar-brand" asp-area="" asp-controller="Car"
+                                    asp-action="UserCar">Автомобиль</a></li>
+                            <li><a class="navbar-brand" asp-area="" asp-controller="Route"
+                                    asp-action="NewRoute">Добавить путь</a></li>*@
+                            }
+
+
+
+                            @*<li><a class="navbar-brand" asp-area="" asp-controller="Route" asp-action="UserTrips">Мои
+                                    поездки</a></li>
+                            <li><a class="navbar-brand" asp-area="" asp-controller="User"
+                                    asp-action="Reviews">Отзывы</a></li>
+                            <li><a class="navbar-brand" asp-area="" asp-controller="User"
+                                    asp-action="Editing">Редактрование</a></li>
+
+                            @if (ViewBag.UserInfo.IdRole == 2)
+                            {
+                            <li><a class="navbar-brand" asp-area="" asp-controller="Car"
+                                    asp-action="UserCar">Автомобиль</a></li>
+                            <li><a class="navbar-brand" asp-area="" asp-controller="Route"
+                                    asp-action="NewRoute">Добавить путь</a></li>
+                            }else{
+                            <li><a class="navbar-brand" asp-area="" asp-controller="Car" asp-action="UserCar">Стать
+                                    водителем</a></li>
+                            }
+
+                            <li><a class="navbar-brand" asp-area="" asp-controller="User" asp-action="LogOut">Выйти из
+                                    аккаунта</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-9 tab-content profile ">
+
+                <div class="job_details_header tab-pane active pad10_20 white-bg" id="UserInfo">
+
+                    <div>
+
+
+                        <div class="job_details_header">
+                            <div class="single_jobs white-bg d-flex justify-content-between">
+                                <div class="jobs_left d-flex align-items-center">
+                                    <div class="thumb">
+                                        <img class="user-logo" src="@ViewBag.UserInfo.PhotoUser" alt="">
+                                    </div>
+                                    <div class="jobs_conetent">
+                                        <h4>@ViewBag.UserInfo.Fulname</h4>
+                                        <h4>@ViewBag.UserInfo.Age лет</h4>
+                                        <div class="links_locat d-flex align-items-center">
+                                            <div class="location">
+                                                <p> <i class="fa fa-clock-o"></i>Рейтинг: @ViewBag.UserInfo.Estimation / 5</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="descript_wrap white-bg">
+                            <div class="single_wrap">
+                                <h4 class="size_24">О себе</h4>
+                                <p class="big-comment-text">@ViewBag.UserInfo.IdCommentTextNavigation.Text</p>
+                            </div>
+                        </div>
+
+                        <div class="flex-column">
+
+                            @if (ViewBag.UserInfo.IdRole == 1)
+                            {
+                            <a class="navbar-brand left" asp-area="" asp-controller="Car" asp-action="UserCar"> Стать
+                                водителем</a>
+                            }
+                            @if (ViewBag.UserInfo.IdRole == 3)
+                            {
+                            <a class="navbar-brand left" asp-area="" asp-controller="Admin"
+                                asp-action="СonfirmationDriverPage">
+                                Администрорование</a>
+                            }
+
+                            <a class="navbar-brand left" asp-area="" asp-controller="User"
+                                asp-action="Registration">Редактировать</a>
+                            <a class="navbar-brand exit left" asp-area="" asp-controller="User"
+                                asp-action="LogOut">Выйти из
+                                аккаунта</a>
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="tab-pane  white-bg" id="Route">
+                    <div class="product-tab-list">
+                        <ul class="spece_are" role="tablist">
+
+                            <li class="col-lg-4 col-md-12">
+                                <a class="boxed-btn3 colorgreen" href="#FutereRoute" data-toggle="tab">
+                                        Запланированные поездки
+                                </a>
+                            </li>
+
+                            <li class="col-lg-4 col-md-12">
+                                <a class="boxed-btn3 colorgreen" href="#RequestRoute" data-toggle="tab">
+                                         Отправленные заявки
+                                </a>
+                            </li>
+
+                            <li class="col-lg-4 col-md-12">
+                                <a class="boxed-btn3 he100 colorgreen" href="#ArchivRoute" data-toggle="tab">
+                                        Архив поездок
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content profile flex-column pad020">
+                        <hr class="hr-line">
+
+
+
+
+
+                        
+
+
+                        <div class="job_listing_area tab-pane active" id="FutereRoute" style="background: #FFF;">
+                            <div class="container">
+
+                                <div class="job_lists ">
+                                    <div class="row">
+
+                                        @foreach (DiplomProba1.Models.Data.Userroute item in ViewBag.FutereRoutes)
+                                        {
+
+
+                                        <div class="col-lg-12 col-md-12">
+                                    <div class="single_jobs white-bg d-flex justify-content-between bord-sil">
+                                        <div class="jobs_left d-flex align-items-center">
+                                            <div class="thumb ">
+                                                <img class="DriverPh"
+                                                    src="@item.IdRoutNavigation.IdUserNavigation.PhotoUser"
+                                                    alt="Profile Picture">
+                                            </div>
+                                            <div class="jobs_conetent">
+                                                <a>
+                                                    <h4>Водитель: <a> @item.IdRoutNavigation.IdUserNavigation.Fulname</a></h4>
+                                                </a>
+                                                <div class="flexwrap links_locat d-flex align-items-center">
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-map-marker"></i>Из:
+                                                            @item.IdRoutNavigation.BeginRoute </p>
+                                                        <p> <i class="fa fa-map-marker"></i>В:
+                                                            @item.IdRoutNavigation.EndRoute </p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Дата:
+                                                            @item.IdRoutNavigation.DataRoute</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Время:
+                                                            @item.IdRoutNavigation.TimeRoute</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Цена:
+                                                            @item.IdRoutNavigation.Cost ₽</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Забронировано мест:
+                                                            @item.Bookcount</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jobs_right myflex-column">
+                                                    <div class="apply_now">
+                                                        <a class="heart_mark max_width" asp-controller="Route"
+                                                            asp-action="OtchetPDF" asp-route-id="@item.IdRout">Чек</a>
+                                                    </div>
+                                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                                    <a asp-controller="Route" asp-action="RoutePage"
+                                                        asp-route-id="@item.IdRout" class="boxed-btn3"
+                                                        style="margin-top: 5px; padding: 8px 0px;height: 45px;background: #00D363;">Посмотреть</a>
+
+
+                                                    <div class="date">
+                                                        <p>Дата размещениия: @item.IdRoutNavigation.DateAddedRoude</p>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="job_listing_area tab-pane active" id="RequestRoute" style="background: #FFF;">
+                            <div class="container">
+
+                                <div class="job_lists ">
+                                    <div class="row">
+
+                                        @foreach (DiplomProba1.Models.Data.Userroute item in ViewBag.RequestRoutes)
+                                        {
+
+
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="single_jobs white-bg d-flex justify-content-between bord-sil">
+                                                <div class="jobs_left d-flex align-items-center">
+                                            <div class="thumb ">
+                                                <img class="DriverPh"
+                                                    src="@item.IdRoutNavigation.IdUserNavigation.PhotoUser"
+                                                    alt="Profile Picture">
+                                            </div>
+                                            <div class="jobs_conetent">
+                                                <a>
+                                                    <h4>Водитель: @item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
+                                                </a>
+                                                <div class="flexwrap links_locat d-flex align-items-center">
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-map-marker"></i>Из:
+                                                            @item.IdRoutNavigation.BeginRoute </p>
+                                                        <p> <i class="fa fa-map-marker"></i>В:
+                                                            @item.IdRoutNavigation.EndRoute </p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Дата:
+                                                            @item.IdRoutNavigation.DataRoute</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Время:
+                                                            @item.IdRoutNavigation.TimeRoute</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Цена:
+                                                            @item.IdRoutNavigation.Cost ₽</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Забронировано мест:
+                                                            @item.Bookcount</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                <div class="jobs_right myflex-column">
+
+                                                    <a asp-controller="Route" asp-action="RoutePage"
+                                                        asp-route-id="@item.IdRout" class="boxed-btn3"
+                                                        style="margin-top: 5px; padding: 8px 0px;height: 45px;background: #00D363;">Посмотреть</a>
+
+
+                                                    <a asp-controller="Request" asp-action="RefuseRoute"
+                                                        asp-route-id="@item.IdRout" class="boxed-btn3 max_width"
+                                                        style="    margin-top: 5px;
+                                                                                                                                                                     padding: 10px 0px;
+                                                                                                                                                                     height: 45px; 
+                                                                                                                                                                     background: red;">
+                                                        Отказаться </a>
+
+                                                    <div class="date">
+                                                        <p>Дата размещениия: @item.IdRoutNavigation.DateAddedRoude</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="job_listing_area tab-pane active" id="ArchivRoute" style="background: #FFF;">
+                            <div class="container">
+
+                                <div class="job_lists ">
+                                    <div class="row">
+
+                                        @foreach (DiplomProba1.Models.Data.Userroute item in ViewBag.ArchivRoutes)
+                                        {
+
+
+                                        <div class="col-lg-12 col-md-12">
+                                    <div class="single_jobs white-bg d-flex justify-content-between bord-sil">
+                                        <div class="jobs_left d-flex align-items-center">
+                                            <div class="thumb ">
+                                                <img class="DriverPh"
+                                                    src="@item.IdRoutNavigation.IdUserNavigation.PhotoUser"
+                                                    alt="Profile Picture">
+                                            </div>
+                                            <div class="jobs_conetent">
+                                                <a>
+                                                    <h4>Водитель: @item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
+                                                </a>
+                                                <div class="flexwrap links_locat d-flex align-items-center">
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-map-marker"></i>Из:
+                                                            @item.IdRoutNavigation.BeginRoute </p>
+                                                        <p> <i class="fa fa-map-marker"></i>В:
+                                                            @item.IdRoutNavigation.EndRoute </p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Дата:
+                                                            @item.IdRoutNavigation.DataRoute</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Время:
+                                                            @item.IdRoutNavigation.TimeRoute</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p> <i class="fa fa-clock-o"></i> Цена:
+                                                            @item.IdRoutNavigation.Cost ₽</p>
+                                                        <p> <i class="fa fa-clock-o"></i> Забронировано мест:
+                                                            @item.Bookcount</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jobs_right myflex-column">
+                                                    <div class="apply_now">
+                                                        <a class="heart_mark max_width" asp-controller="Route"
+                                                            asp-action="OtchetPDF" asp-route-id="@item.IdRout">Чек</a>
+                                                    </div>
+                                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                                    <a asp-controller="Route" asp-action="RoutePage"
+                                                        asp-route-id="@item.IdRout" class="boxed-btn3"
+                                                        style="margin-top: 5px; padding: 8px 0px;height: 45px;background: #00D363;">Посмотреть</a>
+
+
+                                                    <div class="date">
+                                                        <p>Дата размещениия: @item.IdRoutNavigation.DateAddedRoude</p>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane  white-bg" id="Reviews">
+
+
+                    <div class="product-tab-list">
+                        <ul class="spece_are" role="tablist">
+
+                            <li>
+                                <a class="boxed-btn3 colorgreen" href="#MyReviews" data-toggle="tab">
+                                        Мои отзывы 
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="boxed-btn3 colorgreen" href="#MeReviews" data-toggle="tab">
+                                    
+                                        Отзывы для меня
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content profile flex-column pad020">
+                        <hr class="hr-line">
+                        <div class="tab-pane active" id="MyReviews">
+
+
+                            @foreach (DiplomProba1.Models.Data.Comment item in ViewBag.MyComments ){
+                            if (item.Anonymity == 1){
+                            <div class="flex-column">
+                                <div>
+                                    <p>Отзыв оставлен на: <a asp-area="" asp-controller="User" asp-action="UserPage"
+                                            asp-route-id="@item.IdUserComment"> @item.IdUserCommentNavigation.Fulname </a></p>
+                                </div>
+                                <div class="flex-row review">
+                                    <div class="profile_rev_mini">
+                                        <img src="https://med-aleksin.com/uploads/s/e/q/d/eqdw7q6rbfvd/img/full_o8OqZMht.png" />
+                                    </div>
+
+                                    <div class="rev-user-info">
+                                        <h3>Пользователь</h3>
+                                        <h5>@item.Estimation / 5</h5>
+                                        <p class="big-comment-text">@item.IdCommentTextNavigation.Text</p>
+                                    </div>
+
+                                    
+                                </div>
+                                
+                            </div>
+                            }
+                            else{
+                                <div>
+                                    <p>Отзыв оставлен на: <a asp-area="" asp-controller="User" asp-action="UserPage" asp-route-id="@item.IdUserComment"> @item.IdUserCommentNavigation.Fulname </a></p>
+                                </div>
+
+                             <div class="flex-column review">
+
+                                
+                                <div>
+
+                                
+                                    <div class="jobs_left flex-row justify-content-between max_width">
+                                        <div class="jobs_left flex-row max_width">
+
+                                       
+                                        <div class="profile_rev_mini">
+                                            <img src="@item.IduserLeaveReviewNavigation.UserImgNavigation.Photo" />
+                                        </div>
+
+                                        <div class="rev-user-info max_width">
+                                            <div class="flex-row justify-content-between">
+                                                <div>
+                                                    <h3>@item.IduserLeaveReviewNavigation.Fulname</h3>
+                                                     <h5>Оценка: @item.Estimation / 5</h5>
+                                                </div>
+
+                                                 <div class="jobs_right">
+                                                     <div class="date flex_end">
+                                                         <p class="pstyle">Дата отзыва: @item.Date</p>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="big-comment-text">@item.IdCommentTextNavigation.Text</p>
+                                        </div>
+                                         </div>
+                                       
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            }
+                            }
+                        </div>
+
+                        <div class="tab-pane active  white-bg" id="MeReviews">
+
+
+                            @foreach (DiplomProba1.Models.Data.Comment item in ViewBag.Comments ){
+                            if (item.Anonymity == 1){
+                                <div>
+
+                               
+                                    <div class="flex-row review">
+                                        <div class="profile_rev_mini">
+                                            <img src="https://med-aleksin.com/uploads/s/e/q/d/eqdw7q6rbfvd/img/full_o8OqZMht.png" />
+                                        </div>
+
+                                        <div class="rev-user-info">
+                                            <h3>Пользователь</h3>
+                                            <h5>@item.Estimation / 5</h5>
+                                            <p class="big-comment-text">@item.IdCommentTextNavigation.Text</p>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                             </div>
+                            }
+                            else{
+                             <div class="flex-column review">
+
+                                
+                                <div>
+
+                                
+                                    <div class="jobs_left flex-row justify-content-between max_width">
+                                        <div class="jobs_left flex-row max_width">
+
+                                       
+                                        <div class="profile_rev_mini">
+                                            <img src="@item.IduserLeaveReviewNavigation.UserImgNavigation.Photo" />
+                                        </div>
+
+                                        <div class="rev-user-info max_width">
+                                            <div class="flex-row justify-content-between">
+                                                <div>
+                                                    <h3><a asp-action="UserPage" asp-controller="user" asp-route-id="@item.IduserLeaveReviewNavigation"></a> @item.IduserLeaveReviewNavigation.Fulname</h3>
+                                                     <h5>Оценка: @item.Estimation / 5</h5>
+                                                </div>
+
+                                                 <div class="jobs_right">
+                                                     <div class="date flex_end">
+                                                         <p class="pstyle">Дата отзыва: @item.Date</p>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="big-comment-text">@item.IdCommentTextNavigation.Text</p>
+                                        </div>
+                                         </div>
+                                       
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            }
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                
+
+
+
+                @if (ViewBag.UserInfo.IdRole == 2)
+        {
+
+
+
+        <div class="tab-pane white-bg pad10_20" id="UserCar">
+            <div class="column">
+                @if(@ViewBag.RouteVod != null){
+                <div class="flex-column">
+                    <a class="max_width boxed-btn3" style="background:#00D363;" asp-area="" asp-controller="Route"
+                        asp-action="RoutePage" asp-route-id="@ViewBag.RouteVod.IdRout">Ближайщий рейс</a>
+                </div>
+                }
+
+
+                <div>
+                    <hr class="hr-line">
+                    <h3>Посмотреть мои маршруты</h3>
+                    <div class="profile-info">
+                        <a class=" navbar-brand" asp-area="" asp-controller="Route" asp-route-activ="1"
+                            asp-action="ViewRoute">Активные маршруты</a>
+                        <a class=" navbar-brand" asp-area="" asp-controller="Route" asp-route-activ="3"
+                            asp-action="ViewRoute">Архив маршрутов</a>
+                    </div>
+
+                </div>
+
+                <hr class="hr-line">
+
+                <div>
+                    <h3>Заявки на маршрут</h3>
+                    <div class="profile-info">
+                        <h4>Заявок поступило: @ViewData["CountReqwest"]</h4>
+                        <a class=" navbar-brand" asp-area="" asp-controller="Request"
+                            asp-action="ViewRequest">Просмотреть заявки</a>
+                    </div>
+
+                </div>
+
+
+                <div class="flex-column">
+                    <hr class="hr-line">
+                    @if(@ViewData["MaxRoute"] != null){
+                                    <p>У вас достигнут лимит по количеству рейсов. У вас 3 рейса.</p>
+                                }
+                      else{
+                          <a asp-area="" asp-controller="Route" asp-action="NewRoute">Добавить новый путь</a>
+                      }
+                                
+                </div>
+
+
+                <div>
+
+
+
+                    <hr class="hr-line">
+
+
+                    <h3>Автомобиль <a class="navbar-brand" asp-area="" asp-controller="Car"
+                            asp-action="UserCar">Редактировать</a></h3>
+                    <div class="flex-column">
+
+
+
+                        <div class="car-info profile-info">
+                            <h3>Марка: @ViewBag.UserInfo.Car.NameCar</h3>
+                            <h4>Гос. номер: @ViewBag.UserInfo.Car.GosNumber</h4>
+                            <p class="big-comment-text">О машине:
+                                @(((DiplomProba1.Models.Data.User)@ViewBag.UserInfo).Car.IdCommentCarNavigation.Text)
+                            </p>
+
+                        </div>
+
+
+
+
+                        <div class="avto-picture">
+                            <img src="@(((DiplomProba1.Models.Data.User)@ViewBag.UserInfo).Car.CarImageNavigation.Photo)"
+                                alt="Profile Picture" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        }
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

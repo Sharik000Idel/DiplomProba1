@@ -14,8 +14,8 @@
                                         
                                         <div class="jobs_conetent">
                                             
-                                            <div class="links_locat d-flex align-items-center">
-                                                <div class="location">
+                                            <div class="flexwrap links_locat d-flex align-items-center">
+                                                <div class="location minwid150">
                                                     <h4> <i class="fa fa-map-marker "></i>Из: @item.BeginRoute </h4>
                                                     <h4> <i class="fa fa-map-marker "></i>В: @item.EndRoute </h4>
                                                 </div>
@@ -35,7 +35,7 @@
                                                 </div>
 
                                                 <div class="location">
-                                                    <a class="deny_mark" asp-controller="Route" asp-action="OtchetPDFVoditel" asp-route-id="@item.IdRout">Чек</a>
+                                                    <a class="deny_mark max_width" asp-controller="Route" asp-action="OtchetPDFVoditel" asp-route-id="@item.IdRout">Вывести чек</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
         <div class="container">
             <div class="job_lists">
                 <div class="row">
-                    @foreach (DiplomProba1.Models.Data.User user in @item.AllUsersGetRoute())
+                    @foreach (DiplomProba1.Models.Data.Userroute user in @item.AllUsersGetUserRoute())
                     {
                         
                     
@@ -63,20 +63,21 @@
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb ">
-                                    <img class="DriverPh" src="@user.PhotoUser" alt="Profile Picture">
+                                    <img class="DriverPh" src="@user.IdUserNavigation.PhotoUser" alt="Profile Picture">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a asp-controller="User" asp-action="UserPage" asp-route-id="@user.IdUsers"><h4>@user.Fulname</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
+                                    <a asp-controller="User" asp-action="UserPage" asp-route-id="@user.IdUserNavigation.IdUsers"><h4>@user.IdUserNavigation.Fulname</h4></a>
+                                    <div class="flexwrap links_locat d-flex align-items-center">
                                         <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i>@user.Estimation / 5</p>
+                                            <p> <i class="fa fa-map-marker"></i>@user.IdUserNavigation.Estimation / 5</p>
+                                            <p> <i class="fa fa-map-marker"></i>Забронировано мест: @user.Bookcount </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="jobs_right">
                                 <div class="apply_now">
-                                   <p>Номер телефона: <a  class="deny_mark" style="width: 100%;"> @user.Login </a> </p> 
+                                   <p>Номер телефона: <a  class="deny_mark" style="width: 100%;"> @user.IdUserNavigation.Login </a> </p> 
                                 </div>
                             </div>
                         </div>

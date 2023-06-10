@@ -45,6 +45,16 @@ namespace DiplomProba1.Models.Data
 
         }
 
+        public List<Userroute> UsersRouteGetRoute()
+        {
+
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            return diplomdbContext.Userroutes.Where(m => m.IdRout == IdRout && m.StatusUserRouteId == 3).ToList();
+
+
+        }
+
+
         public List<User> AllUsersGetRoute()
         {
             diplomdbContext diplomdbContext = new diplomdbContext();
@@ -61,6 +71,20 @@ namespace DiplomProba1.Models.Data
         {
             diplomdbContext diplomdbContext = new diplomdbContext();
             return (CountPassagir - diplomdbContext.Userroutes.Where(m => m.IdRout == IdRout && m.StatusUserRouteId == 1).Select(p=>p.Bookcount).ToList().Sum());
+        }
+
+        public static IEnumerable<IGrouping<string , string>> MorePopularCity()
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            List<string> city = diplomdbContext.Routes.Select(c=>c.BeginRoute).ToList();
+            city.AddRange(diplomdbContext.Routes.Select(c => c.EndRoute).ToList());
+            var most = city.GroupBy(x => x).OrderByDescending(x => x.Count()).ToList().Take(4);
+
+            
+
+
+            city = most.Select(x => x.Key).ToList();
+            return most;
         }
     }
 }

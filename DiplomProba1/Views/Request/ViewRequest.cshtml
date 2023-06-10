@@ -15,7 +15,7 @@
                                         <div class="jobs_conetent">
                                             
                                             <div class="links_locat d-flex align-items-center">
-                                                <div class="location">
+                                                <div class="location minwid150">
                                                     <h4> <i class="fa fa-map-marker "></i>Из: @item.BeginRoute </h4>
                                                     <h4> <i class="fa fa-map-marker "></i>В: @item.EndRoute </h4>
                                                 </div>
@@ -49,7 +49,7 @@
         <div class="container">
             <div class="job_lists">
                 <div class="row">
-                    @foreach (DiplomProba1.Models.Data.User user in @item.UsersGetRoute())
+                    @foreach (DiplomProba1.Models.Data.Userroute userroute in @item.UsersRouteGetRoute())
                     {
                         
                     
@@ -57,21 +57,22 @@
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb ">
-                                    <img class="DriverPh" src="@user.PhotoUser" alt="Profile Picture">
+                                    <img class="DriverPh" src="@userroute.IdUserNavigation.PhotoUser" alt="Profile Picture">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a asp-controller="User" asp-action="UserPage" asp-route-id="@user.IdUsers"><h4>@user.Fulname</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
+                                    <a asp-controller="User" asp-action="UserPage" asp-route-id="@userroute.IdUserNavigation.IdUsers"><h4>@userroute.IdUserNavigation.Fulname</h4></a>
+                                    <div class="flexwrap links_locat d-flex align-items-center">
                                         <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i>@user.Estimation / 5</p>
+                                            <p> <i class="fa fa-map-marker"></i>@userroute.IdUserNavigation.Estimation / 5</p>
+                                            <p> <i class="fa fa-map-marker"></i>Забронировано мест: @userroute.Bookcount </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="jobs_right">
                                 <div class="apply_now">
-                                    <a asp-controller="Request" asp-action="Accept" asp-route-idUser="@user.IdUsers" asp-route-idroute="@item.IdRout" asp-route-idrequest="2" class="deny_mark"> Отказать </a>
-                                    <a asp-controller="Request" asp-action="Accept" asp-route-idUser="@user.IdUsers" asp-route-idroute="@item.IdRout" asp-route-idrequest="1" class="boxed-btn3">Принять</a>
+                                    <a asp-controller="Request" asp-action="Accept" asp-route-idUser="@userroute.IdUserNavigation.IdUsers" asp-route-idroute="@userroute.IdRout" asp-route-idrequest="2" class="deny_mark"> Отказать </a>
+                                    <a asp-controller="Request" asp-action="Accept" asp-route-idUser="@userroute.IdUserNavigation.IdUsers" asp-route-idroute="@userroute.IdRout" asp-route-idrequest="1" class="boxed-btn3">Принять</a>
                                 </div>
                                 <div class="date">
                                     <p>Дата размещениия: 31 января 2020</p>

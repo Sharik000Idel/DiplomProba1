@@ -3344,7 +3344,6 @@ tbody.collapse.show {
     height: 0;
     margin-left: .255em;
     vertical-align: .255em;
-    content: "";
     border-top: .3em solid;
     border-right: .3em solid transparent;
     border-bottom: 0;
@@ -5038,7 +5037,7 @@ tbody.collapse.show {
 
 .badge {
     display: inline-block;
-    padding: .25em .4em;
+    /*padding: .25em .4em;*/
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
@@ -5704,15 +5703,7 @@ button.close {
     outline: 0
 }
 
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 999999;
-    background-color: #000
-}
+
 
 .modal-backdrop.fade {
     opacity: 0

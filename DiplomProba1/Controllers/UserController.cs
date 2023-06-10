@@ -7,7 +7,7 @@ using Microsoft.Extensions.FileProviders;
 
 namespace DiplomProba1.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         public IActionResult Registration()//регистрация 
         {
@@ -50,6 +50,7 @@ namespace DiplomProba1.Controllers
 
         public IActionResult UserProfile()//странцица пользователя
         {
+            return RedirectToAction("UserProfileVer2");
             Console.WriteLine(DateTime.Now);
             var mySessionValue = HttpContext.Session.GetString("UserId");
             if (mySessionValue != null)
@@ -81,6 +82,47 @@ namespace DiplomProba1.Controllers
             return RedirectToAction("Aauthorization");
         }
 
+        public IActionResult UserProfileVer2()//странцица пользователя
+        {
+            Console.WriteLine(DateTime.Now);
+            var mySessionValue = HttpContext.Session.GetString("UserId");
+            if (mySessionValue != null)
+            {
+                
+                diplomdbContext diplomdbContext = new diplomdbContext();
+                Console.WriteLine(diplomdbContext.Roles.Count());
+                User user = diplomdbContext.Users.First(x => x.IdUsers == Convert.ToInt32(mySessionValue));
+                ViewBag.UserInfo = user;
+                ViewBag.Comments = diplomdbContext.Comments.Where(u => u.IdUserComment == user.IdUsers).ToList();
+                ViewBag.MyComments = diplomdbContext.Comments.Where(u => u.IduserLeaveReview == user.IdUsers).ToList();
+
+                List<DiplomProba1.Models.Data.Userroute> routes = diplomdbContext.Userroutes.Where(m => m.IdUser == Convert.ToInt32(mySessionValue) && m.StatusUserRouteId == 1).ToList();
+                List<DiplomProba1.Models.Data.Userroute> routes1 = diplomdbContext.Userroutes.Where(m => m.IdUser == Convert.ToInt32(mySessionValue) && m.StatusUserRouteId == 3).ToList();
+
+                List<DiplomProba1.Models.Data.Route> routesVodit = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute == 1).ToList();
+                ViewData["CountReqwest"] = diplomdbContext.Userroutes.Where(m => m.StatusUserRouteId == 3 && routesVodit.Contains(m.IdRoutNavigation)).Count();
+                if (diplomdbContext.Routes.Where(m => m.IdUser == Convert.ToInt32(mySessionValue)).Count() >= 3)
+                {
+                    ViewData["MaxRoute"] = "true";
+                }
+                
+
+
+                DiplomProba1.Models.Data.Route RouteVod = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute == 2).FirstOrDefault();
+                if (RouteVod == null)
+                {
+                    RouteVod = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute != 3 && p.IdStatusRoute != 2).OrderBy(p => p.DataTimeStart).FirstOrDefault();
+                }
+                ViewBag.RouteVod = RouteVod;
+                ViewBag.FutereRoutes = routes.Where(d => d.IdRoutNavigation.DataTimeStart > DateTime.Now).ToList();
+                ViewBag.RequestRoutes = routes1.Where(d => d.IdRoutNavigation.DataTimeStart > DateTime.Now).ToList();
+                ViewBag.ArchivRoutes = routes.Where(d => d.IdRoutNavigation.DataTimeStart < DateTime.Now).ToList();
+                return View();
+            }
+            return RedirectToAction("Aauthorization");
+        }
+
+
         public IActionResult LogIn(string email, string password) //вход
         {
             diplomdbContext diplomdbContext = diplomdbContext.GetContext();
@@ -90,6 +132,23 @@ namespace DiplomProba1.Controllers
             if (diplomdbContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password) != null)
             {
                 User us = diplomdbContext.Users.First(u => u.Email == email && u.Password == password);
+
+                
+
+                //int CountMess = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == us.IdUsers).Count();
+                //Console.WriteLine("предстоящие поездки" + CountMess);
+                //CountMess += diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3 && r.IdUser == us.IdUsers && r.IdRoutNavigation.DataTimeStart.AddDays(1) < DateTime.Now).Count();
+                //Console.WriteLine("нидавние поездки" + CountMess);
+                //if (us.IdRole == 2)
+                //{
+                //    List<DiplomProba1.Models.Data.Route> routesVodit = diplomdbContext.Routes.Where(p => p.IdUser == us.IdUsers && p.IdStatusRoute == 1).ToList();
+                //    CountMess += diplomdbContext.Userroutes.Where(m => m.StatusUserRouteId == 3 && routesVodit.Contains(m.IdRoutNavigation)).Count();
+                //    Console.WriteLine("колчиесвсто заявок" + CountMess);
+                //}
+                //Console.WriteLine("всего" + CountMess);
+                //HttpContext.Session.SetString("CountMess", CountMess.ToString());
+
+
                 HttpContext.Session.SetString("UserId", us.IdUsers.ToString());
                 HttpContext.Session.SetString("UserImage", System.Convert.ToBase64String(us.UserImgNavigation.Image1));
                 HttpContext.Session.SetString("UserImageId", us.UserImgNavigation.IdImages.ToString());
@@ -182,6 +241,9 @@ namespace DiplomProba1.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("UserImageId");
+            HttpContext.Session.Remove("UserImage");
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -190,6 +252,7 @@ namespace DiplomProba1.Controllers
         {
             if (id != 0)
             {
+                var mySessionValue = HttpContext.Session.GetString("UserId");
                 diplomdbContext diplomdbContext = new diplomdbContext();
                 ViewData["CountRoute"] = diplomdbContext.Userroutes.Where(p => p.IdRoutNavigation.IdUser == id).ToList().Count() + diplomdbContext.Routes.Where(p=> p.IdUser == id).ToList().Count();
                 if (HttpContext.Session.GetString("UserId") != null && 
@@ -197,8 +260,21 @@ namespace DiplomProba1.Controllers
                     diplomdbContext.Comments.FirstOrDefault(p => p.IduserLeaveReview == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && p.IdUserComment == id) == null  )
                 {
                     ViewData["InRoute"] = true;
-                } 
-                
+                }
+                List<DiplomProba1.Models.Data.Route> routesUser = diplomdbContext.Userroutes.Where(r => r.IdUser == Convert.ToInt32(mySessionValue) && r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3).Select(p => p.IdRoutNavigation).ToList();
+                List<DiplomProba1.Models.Data.Route> routesThisUser = diplomdbContext.Userroutes.Where(r => r.IdUser == id && r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3).Select(p => p.IdRoutNavigation).ToList();
+                Console.WriteLine("совместные поездки "  +(routesUser.Intersect(routesThisUser)).Count());
+                if (id != Convert.ToInt32(mySessionValue) &&
+                    (routesUser.Intersect(routesThisUser)).Count() != 0 &&
+                    diplomdbContext.Comments.FirstOrDefault(p => p.IduserLeaveReview == Convert.ToInt32(mySessionValue) && p.IdUserComment == id) == null
+                    
+                    ) 
+                {
+                    ViewData["InRoute"] = true;
+                }
+                    
+
+
                 ViewBag.Comments = diplomdbContext.Comments.Where(c => c.IdUserComment == id).ToList();
                 ViewBag.CountComments = diplomdbContext.Comments.Where(c => c.IdUserComment == id).ToList().Count();
                 ViewBag.UserInfo = (DiplomProba1.Models.Data.User)diplomdbContext.Users.First(c => c.IdUsers == id);
@@ -376,7 +452,74 @@ namespace DiplomProba1.Controllers
         //    }
         }
 
-        
+        public IActionResult MessagePage()
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            var mySessionValue = HttpContext.Session.GetString("UserId");
+            ViewBag.FutereRoute = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+            int a = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).ToList().Count();
+            //все маршруты пользоавтеля
+            List<DiplomProba1.Models.Data.Route> routes =diplomdbContext.Userroutes.Where(r =>r.IdUser == Convert.ToInt32(mySessionValue) && r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3 &&  r.IdRoutNavigation.DataTimeStart.AddDays(1) > DateTime.Now).Select(p => p.IdRoutNavigation).ToList();
+
+            List<User> users2 = new List<User>();
+            foreach (DiplomProba1.Models.Data.Route ro in routes)
+            {
+                foreach (User us in ro.AllUsersGetRoute())
+                {
+                    Console.WriteLine("количество " + ro.AllUsersGetRoute().Count());
+                    Console.WriteLine(" номер " + us.IdUsers);
+                    if (diplomdbContext.Comments.FirstOrDefault(p=>p.IdUserComment == us.IdUsers && p.IduserLeaveReview == Convert.ToInt32(mySessionValue) && p.IdUserComment != Convert.ToInt32(mySessionValue)) == null )
+                    {
+                        Console.WriteLine("польщоавтель номер " + us.IdUsers);
+                        if (us.IdUsers != Convert.ToInt32(mySessionValue))
+                        {
+                            users2.Add(us);
+                        }
+                    }
+                }
+            }
+            
+            Console.WriteLine("user " + users2.Count());
+            users2 = users2.GroupBy(x => x.IdUsers).Select(y => y.First()).ToList();
+            a += users2.Count();
+            ViewBag.RequestUser = users2;
+           
+
+            //Console.WriteLine("user " + usereroute.IdUser);
+            //ViewBag.RequestUser = null;
+            //if (usereroute != null)
+            //{
+            //    if (diplomdbContext.Comments.FirstOrDefault(p => p.IduserLeaveReview == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && p.IdUserComment == usereroute.IdUser) == null)
+            //    {
+            //        ViewBag.RequestUser = usereroute;
+            //    }
+            //}
+            List<DiplomProba1.Models.Data.Route> route = diplomdbContext.Routes.Where(p => (p.IdStatusRoute == 1 || p.IdStatusRoute == 4) && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
+            a += route.Count();
+            Console.WriteLine("кол сообщений " + a);
+            ViewBag.VRoutes = route.ToList();
+            Console.WriteLine("route " + route.Count());
+            return View();
+        }
+
+
+        //public  void CountMess()
+        //{
+        //    var mySessionValue = HttpContext.Session.GetString("UserId");
+        //    diplomdbContext diplomdbContext = new diplomdbContext();
+        //    int CountMess = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).Count();
+        //    Console.WriteLine("предстоящие поездки" + CountMess);
+        //    CountMess += diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3 && r.IdUser == Convert.ToInt32(mySessionValue) && r.IdRoutNavigation.DataTimeStart.AddDays(1) < DateTime.Now).Count();
+        //    Console.WriteLine("нидавние поездки" + CountMess);
+        //    if (Convert.ToInt32(mySessionValue) == 2)
+        //    {
+        //        List<DiplomProba1.Models.Data.Route> routesVodit = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute == 1).ToList();
+        //        CountMess += diplomdbContext.Userroutes.Where(m => m.StatusUserRouteId == 3 && routesVodit.Contains(m.IdRoutNavigation)).Count();
+        //        Console.WriteLine("колчиесвсто заявок" + CountMess);
+        //    }
+        //    Console.WriteLine("всего" + CountMess);
+        //    HttpContext.Session.SetString("CountMess", CountMess.ToString());
+        //}
 
 
     }

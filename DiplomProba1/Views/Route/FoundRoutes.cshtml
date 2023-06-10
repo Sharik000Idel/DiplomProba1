@@ -10,8 +10,8 @@
     EndRoute = ((DiplomProba1.Models.Data.Route)ViewBag.routes[0]).EndRoute;
     @*date = ((DiplomProba1.Models.Data.Route)ViewBag.routes[0]).DataTimeStart.ToString("yyyy-MM-dd");*@
 }
-<div class="descript">
- <div class="catagory_area">
+<div class="descript backsilver">
+ <div class="catagory_area max_width white-bg">
         <div class="container">
             <form class="row cat_search" asp-action=FoundRoutes asp-controller="Route">
                 <div class="col-lg-3 col-md-12">
@@ -24,14 +24,20 @@
                         <input type="text" name="EndRoute" id="destination_end" value="@ViewBag.EndRoute" placeholder="Куда">
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="single_input">
-                        <input type="date" name="date" id="date" placeholder="Выберите дату" value="@ViewBag.DateRoute" min="@ViewBag.DateNow" max="2023-12-12" >
+                <div class="col-lg-4 col-md-12">
+                    <div class="d-flex space-between">
+                        <div class="single_input pad0 col-lg-8">
+                        <input type="date" name="date" id="date" placeholder="Выберите дату" min="@ViewBag.DateNow" max="2023-12-12" >
                     </div>
+                    <div class="single_input" title="Количество пассажиров">
+                        <input type="number" name="all" id="all" placeholder="" value="1" min="1" max="3" >
+                    </div>
+                    </div>
+                    
                 </div>
 
   
-                <div class="col-lg-3 col-md-12">
+                <div class="col-lg-2 col-md-12">
                     <div class="job_btn">
                         <input class="boxed-btn3" type="submit" value="Поиск">
                     </div>
@@ -55,7 +61,7 @@
                                             <input type="hidden" name="EndRoute" id="destination_end" value="@EndRoute">
                                             <input type="hidden" name="BeginRoute" id="destination_start" value="@BeginRoute">
                                             <input type="hidden" name="date" id="date" placeholder="Выберите дату" value="@ViewBag.DateRoute">
-                                            <input name="all" type="number" placeholder="Количество пассажиров" value="@ViewBag.all" min="1" max="8" pattern="[1-8]{1}">
+                                            <input name="all" type="number" placeholder="Количество пассажиров" value="@ViewBag.all" min="1" max="3">
                                         </div>
                                     </div>
                                     @*<div class="col-lg-12">
@@ -123,9 +129,9 @@
                                         </div>
                                         <div class="jobs_conetent">
                                             <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser">
-                                                <h4>@item.IdUserNavigation.Fulname</h4>
+                                                <h4>Водитель: @item.IdUserNavigation.Fulname</h4>
                                             </a>
-                                            <div class="links_locat d-flex align-items-center">
+                                            <div class="flexwrap links_locat d-flex align-items-center">
                                                 <div class="location">
                                                     <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
                                                     <p> <i class="fa fa-map-marker"></i>В: @item.EndRoute </p>
@@ -141,9 +147,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="jobs_right">
-                                        <div class="apply_now">
+                                    <div class="jobs_right myflex-columnend">
+                                        <div class="apply_now date">
                                             <a asp-controller="Route" asp-action="RoutePage" asp-route-count="@ViewBag.all" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Дата размещениия: @item.DateAddedRoude</p>
                                         </div>
                                     </div>
                                 </div>

@@ -1,0 +1,147 @@
+﻿
+<div class="descript job_listing_area">
+        <div class="job_listing_area wid700" style="padding-bottom: 80px;">
+        <div class="container myflex-column content-center">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section_title">
+                        <h3>Входящии</h3>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="job_lists">
+                <div class="row">
+                    
+                @foreach (DiplomProba1.Models.Data.Route item in ViewBag.VRoutes)
+                    {
+                        @foreach (var user in item.UsersRouteGetRoute())
+                        {
+                            <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb ">
+                                    <img class="DriverPh" src="@user.IdUserNavigation.PhotoUser" alt="Profile Picture">
+                                </div>
+                                <div class="jobs_conetent">
+
+                                    <div class="flexwrap links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <h3> <i class="fa fa-map-marker"></i>Заявка на участие в маршруте</h3>
+                                        </div>
+                                    </div>
+
+                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@user.IdUser"><h4>@user.IdUserNavigation.Fulname</h4></a>
+                                                                    </div>
+                            </div>
+                            <div class="jobs_right myflex-column">
+                                <div class="apply_now">
+                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                       
+                                        @*<a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>*@
+                                     <a  class="boxed-btn3"  asp-action="ViewRequest" asp-controller="Request">Посмотреть</a>
+                                </div>
+                                @*<div class="date">
+                                    <p>Дата размещениия:</p>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    
+                    }
+
+
+                @foreach (DiplomProba1.Models.Data.User user in ViewBag.RequestUser) {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb ">
+                                    <img class="DriverPh" src="@user.PhotoUser" alt="Profile Picture">
+                                </div>
+                                <div class="jobs_conetent">
+
+                                    <div class="flexwrap links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <h3> <i class="fa fa-map-marker"></i>Оставьте отзыв на попутчика</h3>
+                                        </div>
+                                    </div>
+
+                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@user.IdUsers"><h4>@user.Fulname</h4></a>
+                                                                    </div>
+                            </div>
+                            <div class="jobs_right myflex-column">
+                                <div class="apply_now">
+                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                       
+                                        @*<a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>*@
+                                     <a  class="boxed-btn3"  asp-action="UserPage" asp-controller="User" asp-route-id="@user.IdUsers"> Оставить отзыв</a>
+                                </div>
+                                @*<div class="date">
+                                    <p>Дата размещениия:</p>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @foreach (DiplomProba1.Models.Data.Userroute item in @ViewBag.FutereRoute) {
+                    <div class="col-lg-12 col-md-12">
+                        
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb ">
+                                    <img class="DriverPh" src="@item.IdRoutNavigation.IdUserNavigation.PhotoUser" alt="Profile Picture">
+                                </div>
+                                <div class="jobs_conetent">
+                                    
+                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser"><h4>Водитель: @item.IdRoutNavigation.IdUserNavigation.Fulname</h4></a>
+                                    <div class="flexwrap links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-map-marker"></i>Из: @item.IdRoutNavigation.BeginRoute </p>
+                                            <p> <i class="fa fa-map-marker"></i>В: @item.IdRoutNavigation.EndRoute </p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> Дата: @item.IdRoutNavigation.DataRoute</p>
+                                            <p> <i class="fa fa-clock-o"></i> Время: @item.IdRoutNavigation.TimeRoute</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> Забронировано мест: @item.Bookcount</p>
+                                            <p> <i class="fa fa-clock-o"></i> Цена места: @item.IdRoutNavigation.Cost ₽</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right myflex-column">
+                                <div class="apply_now">
+                                    @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
+                                    <a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
+                                </div>
+                                <div class="date">
+                                    <p>Дата размещениия: @item.IdRoutNavigation.DateAddedRoude</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        
+   
+   
+    
+
+
+
+
+<!-- Модальное окно -->
+
+
+</div>
