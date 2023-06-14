@@ -16,14 +16,16 @@
             <form class="row cat_search" asp-action=FoundRoutes asp-controller="Route">
                 <div class="col-lg-3 col-md-12">
                     <div class="single_input">
-                        <input type="text" name="BeginRoute" id="destination_start" value="@ViewBag.BeginRoute" placeholder="Откуда">
+                        <input type="text" name="BeginRoute" id="destination_start" value="@ViewBag.BeginRoute"  placeholder="Откуда">
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-12">
                     <div class="single_input">
-                        <input type="text" name="EndRoute" id="destination_end" value="@ViewBag.EndRoute" placeholder="Куда">
+                        <input type="text" name="EndRoute" id="destination_end" value="@ViewBag.EndRoute"  placeholder="Куда">
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-md-12">
                     <div class="d-flex space-between">
                         <div class="single_input pad0 col-lg-8">
@@ -47,10 +49,10 @@
         </div>
     </div>
 
-        <div class="job_listing_area plus_padding">
+        <div class="job_listing_area plus_padding max_width">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 mbott20">
                     <div class="job_filter white-bg">
                         <div class="form_inner white-bg">
                             <h3>Фильтр</h3>
@@ -61,7 +63,18 @@
                                             <input type="hidden" name="EndRoute" id="destination_end" value="@EndRoute">
                                             <input type="hidden" name="BeginRoute" id="destination_start" value="@BeginRoute">
                                             <input type="hidden" name="date" id="date" placeholder="Выберите дату" value="@ViewBag.DateRoute">
-                                            <input name="all" type="number" placeholder="Количество пассажиров" value="@ViewBag.all" min="1" max="3">
+                                            <div class="d-flex row">
+                                                <div class="col-lg-12 col-md-6">
+                                                    <label for="email">Цены от:</label>
+                                                    <input name="mincost" type="number"  min="0" max="20000"  value="@ViewBag.Minxcost">
+                                                </div>
+                                                <div class="col-lg-12 col-md-6">
+                                                    <label for="email">Цены до:</label>
+                                                    <input name="maxcost" type="number"  min="1" max="20000"  value="@ViewBag.Maxcost">
+                                                </div>
+                                                
+                                                
+                                             </div>
                                         </div>
                                     </div>
                                     @*<div class="col-lg-12">
@@ -96,7 +109,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="recent_joblist_wrap">
+                    @*<div class="recent_joblist_wrap">
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
@@ -114,9 +127,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
-                    <div class="job_lists m-0">
+                    <div class="padtop0 job_lists m-0 ">
                         <div class="row">
                             @if(ViewBag.routes != null){
                             @foreach (DiplomProba1.Models.Data.Route item in ViewBag.routes)
@@ -129,7 +142,7 @@
                                         </div>
                                         <div class="jobs_conetent">
                                             <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser">
-                                                <h4>Водитель: @item.IdUserNavigation.Fulname</h4>
+                                                <h4>@item.IdUserNavigation.Fulname</h4>
                                             </a>
                                             <div class="flexwrap links_locat d-flex align-items-center">
                                                 <div class="location">
@@ -148,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div class="jobs_right myflex-columnend">
-                                        <div class="apply_now date">
+                                        <div class="apply_now date row">
                                             <a asp-controller="Route" asp-action="RoutePage" asp-route-count="@ViewBag.all" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
                                         </div>
                                         <div class="date">

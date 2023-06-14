@@ -28,6 +28,18 @@ namespace DiplomProba1.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            diplomdbContext diplomdbContext = diplomdbContext.GetContext();
+            ViewBag.Comments = diplomdbContext.Comments.Where(p=>p.IdUserComment == 8).ToList();
+            var mySessionValue = HttpContext.Session.GetString("UserId");
+            if (mySessionValue != null && diplomdbContext.Comments.Where(p=>p.IdUserComment == 8 && p.IduserLeaveReview == Convert.ToInt32(mySessionValue)).Count() == 0)
+            {
+                ViewData["InRoute"] = true;
+            }
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

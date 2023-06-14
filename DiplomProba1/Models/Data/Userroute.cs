@@ -10,6 +10,7 @@ namespace DiplomProba1.Models.Data
         public int IdRout { get; set; }
         public int? StatusUserRouteId { get; set; }
         public int? Bookcount { get; set; }
+        public int? ReadMess { get; set; }
 
         public virtual Route IdRoutNavigation { get; set; } = null!;
         public virtual User IdUserNavigation { get; set; } = null!;

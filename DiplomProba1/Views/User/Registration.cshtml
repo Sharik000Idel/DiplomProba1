@@ -40,7 +40,6 @@
             <input type="hidden" id="id" name="id" value="@id" readonly >
       
             <div class="arande">
-                
                 <label for="email">Электронная почта:</label>
                 <input type="email" id="email" name="Email" value="@Email" required maxlength="45">
             </div>
@@ -73,7 +72,7 @@
             
             <div class="arande">
                 <label for="birthday">Дата рождения:</label>
-                <input type="date" id="birthday" name="Birthday" value="@Birthday" required max="2006-01-01">
+                <input type="date" id="birthday" name="Birthday" value="@Birthday" required max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd")">
             </div>
             
             <input type="hidden" id="IdCommentAbout" value="@IdCommentAbout" name="IdCommentAbout" readonly>
@@ -184,7 +183,7 @@
             </div>
             <div class="arande">
                 <label for="birthday">Дата рождения:</label>
-                <input type="date" id="birthday" name="Birthday" required max="2006-01-01" >
+                <input type="date" id="birthday" name="Birthday" required max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM-dd")" >
             </div>
             <div class="arande">
                 <label for="about_me">О себе:</label>

@@ -1,4 +1,6 @@
-﻿<header>
+﻿@model DiplomProba1.Models.TestImagecs
+
+<header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid ">
@@ -11,40 +13,28 @@
                                     </a>
                                 </div>
                             </div>
-                            @*<div class="col-xl-6 col-lg-7">
-                                <div class="main-menu  d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a href="index.html">Главная</a></li>
-                                            <li><a href="jobs.html">Наши водители</a></li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="candidate.html">Candidates </a></li>
-                                                    <li><a href="job_details.html">job details </a></li>
-                                                    <li><a href="elements.html">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>*@
                             <div class="">
-
-                                
-                                    
-                                  
                                     @if(Context.Session.GetString("UserId") != null ){
                                         <div class="btn-group">
                                     <button type="button" class="dropdown-toggle nonecolor" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                        <img src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg"/>
+                                        @{
+                                         string FormatImage(string a)
+                                         {
+                                             switch (a.ToUpper())
+                                             {
+                                                 case "IVBOR":
+                                                     return "png";
+                                                 case "/9J/4":
+                                                     return "jpg";
+                                                 default:
+                                                     return "png";
+                                             }
+                                         }
+
+                                        string a = "data:image/+"+FormatImage(@Context.Session.GetString("UserImage").Substring(0, 5)) +";base64," + @Context.Session.GetString("UserImage") ;
+                                    } 
+                                        <img class="comment_img" src="@a"/>
                                         @if(Context.Session.GetString("CountMess").Trim() != "0"){
                                         <span class="position-absolute  translate-middle badge rounded-pill bg-danger fontsize20">
                                             
@@ -55,10 +45,10 @@
                                      }
                                   </button>
                                         <ul class="dropdown-menu dropdown-menu-start pad0 wid300 nonecolor">
-                                        <li class="padtop20"><a class="boxed-btn3 dropdown-item " asp-area="" asp-controller="User" asp-action="UserProfile">Профиль</a></li>
-                                        <li><a class="boxed-btn3 dropdown-item" asp-area="" asp-controller="User" asp-action="MessagePage">Входящии (@Context.Session.GetString("CountMess"))</a></li>
+                                        <li class="padtop20"><a class="boxed-btn3 dropdown-item selectbtn" asp-area="" asp-controller="User" asp-action="UserProfile">Профиль</a></li>
+                                        <li><a class="boxed-btn3 dropdown-item selectbtn" asp-area="" asp-controller="User" asp-action="MessagePage">Входящии (@Context.Session.GetString("CountMess"))</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="boxed-btn3 exit dropdown-item" asp-area="" asp-controller="User" asp-action="LogOut">Выйти из аккаунта</a></li>
+                                        <li><a class="boxed-btn3 exit dropdown-item selectbtn" asp-area="" asp-controller="User" asp-action="LogOut">Выйти из аккаунта</a></li>
                                          </ul>
                                          </div>
                                     }
@@ -72,38 +62,9 @@
                                             </div>
                                          </div>
                                     }
-
-                                 
-                                
-
-
-                                
-
-
-
-                                @*<div class="Appointment">
-                                    @if( Context.Session.GetString("UserId") != null ){
-
-                                       
-
-                                    <div class="phone_num d-xl-block">
-                                        <a class="boxed-btn3" asp-area="" asp-controller="User" asp-action="UserProfile">Профиль</a>
-                                    </div>
-                                }
-                                else {
-                                    <div class="phone_num d-lg-block" style="display:block!important;">
-                                        <a class="boxed-btn3" asp-area="" asp-controller="User" asp-action="Aauthorization">Авторизация</a>
-                                    </div>
-                                    <div class="phone_num d-none d-xl-block">
-                                        <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Registration">Регистрация</a>
-                                    </div>
-                                }
-                                
-                                </div>*@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

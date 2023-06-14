@@ -381,9 +381,15 @@ namespace DiplomProba1.Controllers
             if (HttpContext.Session.GetString("UserId") != null)
             {
                 diplomdbContext diplomdbContext = new diplomdbContext();
-                if (diplomdbContext.Users.First(p=>p.IdUsers ==Convert.ToInt32(HttpContext.Session.GetString("UserId"))).IdRole == 2  )
+                int idRole = diplomdbContext.Users.First(p => p.IdUsers == Convert.ToInt32(HttpContext.Session.GetString("UserId"))).IdRole;
+                if (idRole == 2  )
                 {
                     return RedirectToAction("NewRoute", "Route");
+                }
+                
+                else if (idRole == 5 || idRole == 7)
+                {
+                    return RedirectToAction("Index", "Home");
                 }
                 return RedirectToAction("UserCar", "Car");
 
@@ -456,6 +462,23 @@ namespace DiplomProba1.Controllers
         {
             diplomdbContext diplomdbContext = new diplomdbContext();
             var mySessionValue = HttpContext.Session.GetString("UserId");
+
+            if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 2)
+            {
+                
+                    DiplomProba1.Models.Data.Route RouteVod = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute != 3 && p.IdStatusRoute != 2).OrderBy(p => p.DataTimeStart).FirstOrDefault();
+                if (RouteVod != null && RouteVod.DataTimeStart<=DateTime.Now)
+                {
+                    ViewData["TimeStartRoute"] = "Время начать поездку";
+                    ViewBag.TimeStartRoute = RouteVod;
+                }
+                    
+            }
+            
+
+            ViewBag.MessUser = diplomdbContext.Userroutes.Where(r => r.IdUser == Convert.ToInt32(mySessionValue) && r.ReadMess == null && r.StatusUserRouteId != 3 && (r.IdRoutNavigation.IdStatusRoute==1 || r.IdRoutNavigation.IdStatusRoute == 4)).ToList();
+
+
             ViewBag.FutereRoute = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).ToList();
             int a = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).ToList().Count();
             //все маршруты пользоавтеля
@@ -478,7 +501,16 @@ namespace DiplomProba1.Controllers
                     }
                 }
             }
-            
+            if (diplomdbContext.Users.FirstOrDefault(p=>p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 6)
+            {
+                ViewBag.WarningDriver = true;
+                a += 1;
+            }
+            if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 5)
+            {
+                ViewBag.DeleteDriver = true;
+                a += 1;
+            }
             Console.WriteLine("user " + users2.Count());
             users2 = users2.GroupBy(x => x.IdUsers).Select(y => y.First()).ToList();
             a += users2.Count();
@@ -503,24 +535,36 @@ namespace DiplomProba1.Controllers
         }
 
 
-        //public  void CountMess()
-        //{
-        //    var mySessionValue = HttpContext.Session.GetString("UserId");
-        //    diplomdbContext diplomdbContext = new diplomdbContext();
-        //    int CountMess = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).Count();
-        //    Console.WriteLine("предстоящие поездки" + CountMess);
-        //    CountMess += diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3 && r.IdUser == Convert.ToInt32(mySessionValue) && r.IdRoutNavigation.DataTimeStart.AddDays(1) < DateTime.Now).Count();
-        //    Console.WriteLine("нидавние поездки" + CountMess);
-        //    if (Convert.ToInt32(mySessionValue) == 2)
-        //    {
-        //        List<DiplomProba1.Models.Data.Route> routesVodit = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute == 1).ToList();
-        //        CountMess += diplomdbContext.Userroutes.Where(m => m.StatusUserRouteId == 3 && routesVodit.Contains(m.IdRoutNavigation)).Count();
-        //        Console.WriteLine("колчиесвсто заявок" + CountMess);
-        //    }
-        //    Console.WriteLine("всего" + CountMess);
-        //    HttpContext.Session.SetString("CountMess", CountMess.ToString());
-        //}
+       
 
+        public IActionResult ReadMess()
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            var mySessionValue = HttpContext.Session.GetString("UserId");
+            if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 6)
+            {
+                diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole = 2;
+                
+            }
+            else if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 5)
+            {
+                diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole = 7;
+                
+            }
+            diplomdbContext.SaveChanges();
+            return RedirectToAction("MessagePage");
+        }
 
+        public IActionResult ReadMessReq(int id)
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            var mySessionValue = HttpContext.Session.GetString("UserId");
+
+            diplomdbContext.Userroutes.First(p => p.IdUserroutes == id).ReadMess = 1;
+            diplomdbContext.SaveChanges();
+
+            return RedirectToAction("MessagePage");
+        }
     }
+
 }

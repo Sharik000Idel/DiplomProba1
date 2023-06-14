@@ -9,10 +9,14 @@ namespace DiplomProba1.Controllers
         {
             if (HttpContext.Session.GetString("UserId") != null)
             {
-                diplomdbContext diplomdbContext = new diplomdbContext();
+                diplomdbContext diplomdbContext = diplomdbContext.GetContext();
                 var mySessionValue = HttpContext.Session.GetString("UserId");
+
                 int a = diplomdbContext.Userroutes.Where(r => r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 1 && r.IdUser == Convert.ToInt32(mySessionValue)).ToList().Count();
                 //все маршруты пользоавтеля
+                Console.WriteLine("сооб от базы 0 кол сообщений " + a);
+                a += diplomdbContext.Userroutes.Where(r => r.IdUser == Convert.ToInt32(mySessionValue) && r.ReadMess == null && r.StatusUserRouteId != 3 && (r.IdRoutNavigation.IdStatusRoute == 1 || r.IdRoutNavigation.IdStatusRoute == 4)).ToList().Count();
+
                 Console.WriteLine("сооб от базы 1 кол сообщений " + a);
                 List<DiplomProba1.Models.Data.Route> routes = diplomdbContext.Userroutes.Where(r => r.IdUser == Convert.ToInt32(mySessionValue) && r.StatusUserRouteId == 1 && r.IdRoutNavigation.IdStatusRoute == 3 && r.IdRoutNavigation.DataTimeStart.AddDays(1) > DateTime.Now).Select(p => p.IdRoutNavigation).ToList();
 
@@ -52,6 +56,28 @@ namespace DiplomProba1.Controllers
                     a += item.UsersRouteGetRoute().Count();
                 }
                 Console.WriteLine("сооб от базы 3 кол сообщений  " + a);
+                if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 6)
+                {
+                    
+                    a += 1;
+                }
+                if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 5)
+                {
+                    
+                    a += 1;
+                }
+                if (diplomdbContext.Users.FirstOrDefault(p => p.IdUsers == Convert.ToInt32(mySessionValue)).IdRole == 2)
+                {
+
+                    DiplomProba1.Models.Data.Route RouteVod = diplomdbContext.Routes.Where(p => p.IdUser == Convert.ToInt32(mySessionValue) && p.IdStatusRoute != 3 && p.IdStatusRoute != 2).OrderBy(p => p.DataTimeStart).FirstOrDefault();
+                    if (RouteVod != null && RouteVod.DataTimeStart <= DateTime.Now)
+                    {
+                        a++;
+                    }
+
+                }
+
+
                 HttpContext.Session.SetString("CountMess", a.ToString());
             }
 

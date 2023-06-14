@@ -8,7 +8,58 @@
       <summary class="col-lg-12">
           
                     
-                    <div class="single_jobs white-bg">
+
+          
+                    
+
+                    <div class="job_lists m-0">
+                        <div class="row">
+                           
+                            
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        
+                                        <div class="jobs_conetent">
+                                            
+                                            <div class="flexwrap links_locat d-flex align-items-center">
+                                                <div class="location location1">
+                                                    <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
+                                                    <p> <i class="fa fa-map-marker"></i>В: @item.EndRoute </p>
+                                                </div>
+                                                <div class="location location1">
+                                                    <p> <i class="fa fa-clock-o"></i> Дата: @item.DataRoute</p>
+                                                    <p> <i class="fa fa-clock-o"></i> Время: @item.TimeRoute</p>
+                                                </div>
+                                                <div class="location location1">
+                                                    <p> <i class="fa fa-clock-o"></i> Мест: @item.CountPassagir</p>
+                                                    <p> <i class="fa fa-clock-o"></i> Цена: @item.Cost ₽</p>
+                                                </div>
+                                                <div class="location location1">
+                                                    <p> <i class="fa fa-clock-o"></i>Всего заявок: @item.UsersGetRoute().Count()</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right myflex-columnend">
+                                        <div class="apply_now date row">
+                                            <a class="boxed-btn3">Посмотреть заявки</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Дата размещениия: @item.DateAddedRoude</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+
+                    @*<div class="single_jobs white-bg">
                              <div class="d-flex justify-content-between">
                                     <div class="jobs_left d-flex align-items-center">
                                         
@@ -38,7 +89,7 @@
                                 </div>
                                 
                                    
-                         </div>
+                         </div>*@
           
           
       

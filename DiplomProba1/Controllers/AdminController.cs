@@ -26,5 +26,29 @@ namespace DiplomProba1.Controllers
             diplomdbContext.SaveChanges();
             return RedirectToAction("СonfirmationDriverPage");
         }
+
+
+        public IActionResult BadDriverPage()
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            ViewBag.Drivers = diplomdbContext.Users.Where(u => u.Estimation < 3).ToList();
+            return View();
+        }
+
+        public IActionResult DeleteDriver(int id, int status)
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            User us = diplomdbContext.Users.First(p => p.IdUsers == id);
+            us.IdRole = status;
+            diplomdbContext.SaveChanges();
+            return RedirectToAction("СonfirmationDriverPage");
+        }
+
+        public IActionResult BlockDriverPage()
+        {
+            diplomdbContext diplomdbContext = new diplomdbContext();
+            ViewBag.Drivers = diplomdbContext.Users.Where(u => u.IdUsers == 5 && u.IdUsers == 7).ToList();
+            return View();
+        }
     }
 }

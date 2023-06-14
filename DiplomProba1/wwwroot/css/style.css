@@ -449,7 +449,7 @@ h3 {
   -moz-border-radius: 5px;
   border-radius: 5px;
   text-align: center;
-  color: #fff !important;
+  
   /*text-transform: capitalize;*/
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -459,11 +459,11 @@ h3 {
 }
 
 /* line 43, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
-.boxed-btn3:hover {
-  color: #00D363 !important;
-  border: 1px solid #00D363;
-  background: transparent;
-}
+    .boxed-btn3:hover {
+        color: #00D363 ;
+        border: 1px solid #00D363;
+        background: #FFFFFF;
+    }
 
 /* line 48, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn3:focus {
@@ -1057,7 +1057,11 @@ h3 {
 .header-area .main-header-area .Appointment .phone_num a {
   font-size: 14px;
   font-weight: 400;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+}
+
+.header-area .main-header-area .Appointment .phone_num a:hover{
+    background-color:transparent;
 }
 
 @media (min-width: 1200px) and (max-width: 1500px) {
@@ -3292,7 +3296,7 @@ h3 {
 @media (max-width: 767px) {
   /* line 27, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
   .job_listing_area .job_lists .single_jobs .jobs_left {
-    display: block !important;
+    /*display: block !important;*/
     overflow: hidden;
   }
 }
@@ -3374,7 +3378,7 @@ h3 {
 @media (max-width: 767px) {
   /* line 82, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
   .job_listing_area .job_lists .single_jobs .jobs_right .apply_now {
-    margin: 10px 0;
+    margin: 10px 0 0 0 ;
   }
 }
 
@@ -3414,9 +3418,9 @@ h3 {
 
 @media (max-width: 767px) {
   /* line 109, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
-  .job_listing_area .job_lists .single_jobs .jobs_right .date {
-    text-align: left;
-  }
+    .job_listing_area .job_lists .single_jobs .jobs_right .date {
+        text-align: right;
+    }
 }
 
 /* line 115, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
@@ -7661,7 +7665,7 @@ h6 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
+    padding-top: 120px;
     min-height: 100vh;
 }
 
@@ -7722,7 +7726,7 @@ h6 {
     }
 
 .arande label {
-    width: 140px;
+    width: 166px;
     margin-bottom: 0px;
     margin-top: 10px;
 }
@@ -7789,6 +7793,11 @@ h6 {
 
 .exit {
     background-color:red;
+}
+
+.exit:hover {
+   color: red;
+   border-color:red!important;
 }
 
 .user-logo {
@@ -8018,7 +8027,7 @@ h6 {
 }
 
 .padtop20{
-    padding-top: 20px;
+    padding-top: 11px;
 }
 
 .cityselect {
@@ -8068,4 +8077,61 @@ h6 {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.selectbtn :hover{
+    background: #11AA11
+}
+
+.main_text_nowrap {
+    text-wrap: nowrap;
+   padding-bottom: 40px;
+    /*padding-bottom: 50px;*/
+}
+
+.main_text_color {
+    color: #028822!important;
+    /*padding-bottom: 50px;*/
+}
+
+.location1 p{
+    color: black!important;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.wi250 {
+    max-width: 250px;
+}
+
+.padtop0{
+    padding-top: 0px!important;
+}
+
+.myIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    background: #dfebf8;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.mydivicon {
+    display: flex;
+    align-items: center;
+}
+.pad40_0 {
+    padding: 40px 0;
+}
+
+.mysilver {
+    background: #F5F7FA;
+}
+
+.aboutBigtext {
+    font-size: 34px;
 }

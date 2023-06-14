@@ -15,10 +15,11 @@ namespace DiplomProba1.Controllers
             _converter= converter;
         }
 
-        public IActionResult FoundRoutes(string BeginRoute, string EndRoute, string date , string all) //поиск маршрутов
+        public IActionResult FoundRoutes(string BeginRoute, string EndRoute, string date , string all ,int? mincost , int? maxcost) //поиск маршрутов
         {
             Console.WriteLine(BeginRoute + " : " + EndRoute);
-            
+            ViewBag.Maxcost = 20000;
+            ViewBag.Mincost = 0;
 
             ViewBag.DateNow = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -49,6 +50,16 @@ namespace DiplomProba1.Controllers
                 
             }
             route = route.OrderBy(p => Math.Abs((date1 - p.DataTimeStart.Date).TotalSeconds)).ToList();
+            if (mincost != null)
+            {
+                route = route.Where(r => r.Cost >= mincost).ToList();
+                ViewBag.Mincost = mincost;
+            }
+            if (maxcost != null)
+            {
+                route = route.Where(r => r.Cost <= maxcost).ToList();
+                ViewBag.Maxcost = maxcost;
+            }
             if (route.Count() != 0)
             {
                 
@@ -172,14 +183,18 @@ namespace DiplomProba1.Controllers
             var mySessionValue = HttpContext.Session.GetString("UserId");
 
             //List<DiplomWebsitePoputchici.Models.Data.Userroute> userroutes = diplomdbContext.Userroutes.Where(m => m.IdRoutNavigation.IdUser == Convert.ToInt32(mySessionValue)).ToList();
-            List<DiplomProba1.Models.Data.Route> userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == 1 && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
+            List<DiplomProba1.Models.Data.Route> userroute = new List<Models.Data.Route>();
+                //diplomdbContext.Routes.Where(p => p.IdStatusRoute == 1 && p.IdUser == Convert.ToInt32(mySessionValue) && p.DataTimeStart > DateTime.Now).ToList();
+            Console.WriteLine("количество  " + userroute.Count());
             if (activ.ToString() == "1")
             {
-                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute.ToString() == activ.ToString() || p.IdStatusRoute == 4 && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                userroute = diplomdbContext.Routes.Where(p => (p.IdStatusRoute == 1 || p.IdStatusRoute == 4) && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                Console.WriteLine("количество 1 " + userroute.Count());
             }
             else if (activ.ToString() == "3")
             {
-                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute.ToString() == activ.ToString() && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                userroute = diplomdbContext.Routes.Where(p => p.IdStatusRoute == 3 && p.IdUser == Convert.ToInt32(mySessionValue)).ToList();
+                Console.WriteLine("количество 3 " + userroute.Count());
 
             }
             

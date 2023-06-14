@@ -16,9 +16,9 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7 col-md-6">
                         <div class="slider_text">
-                            <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">4536+ Поездок</h5>
-                            <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Начни работать с нами</h3>
-                            <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">Мы предоставляем онлайн услуги по созданию и поиску попуток</p>
+                            <h5 class="wow fadeInLeft main_text_color" data-wow-duration="1s" data-wow-delay=".2s">4536+ Поездок</h5>
+                            <h3 class="wow fadeInLeft main_text_color main_text_nowrap" data-wow-duration="1s" data-wow-delay=".3s">Начни работать с нами</h3>
+                            @*<p class="wow fadeInLeft main_text_color" data-wow-duration="1s" data-wow-delay=".4s">Мы предоставляем онлайн услуги по созданию и поиску попуток</p>*@
                             <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
                                 <a asp-action="BecomeDriver" asp-controller="User" class="boxed-btn3">Стать водителем</a>
                             </div>
@@ -36,12 +36,12 @@
             <form class="row cat_search" asp-action=FoundRoutes asp-controller="Route">
                 <div class="col-lg-3 col-md-12">
                     <div class="single_input">
-                        <input type="text" name="BeginRoute" id="destination_start" placeholder="Откуда">
+                        <input type="text" name="BeginRoute" id="destination_start"  placeholder="Откуда">
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="single_input">
-                        <input type="text" name="EndRoute" id="destination_end" placeholder="Куда">
+                        <input type="text" name="EndRoute" id="destination_end"  placeholder="Куда">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12">
@@ -136,7 +136,7 @@
                                     <img class="DriverPh" src="@item.IdUserNavigation.PhotoUser" alt="Profile Picture">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser"><h4>Водитель: @item.IdUserNavigation.Fulname</h4></a>
+                                    <a  asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdUser"><h4> @item.IdUserNavigation.Fulname</h4></a>
                                     <div class="flexwrap links_locat d-flex align-items-center">
                                         <div class="location">
                                             <p> <i class="fa fa-map-marker"></i>Из: @item.BeginRoute </p>
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="jobs_right myflex-columnend">
-                                <div class="apply_now">
+                                <div class="apply_now row">
                                     @*<a class="heart_mark" href="#"> <i class="ti-heart">❤</i> </a>*@
                                     <a asp-controller="Route" asp-action="RoutePage" asp-route-id="@item.IdRout" class="boxed-btn3">Посмотреть</a>
                                 </div>

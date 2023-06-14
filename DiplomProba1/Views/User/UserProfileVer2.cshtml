@@ -126,16 +126,19 @@
                             }
                             @if (ViewBag.UserInfo.IdRole == 3)
                             {
-                            <a class="navbar-brand left" asp-area="" asp-controller="Admin"
-                                asp-action="СonfirmationDriverPage">
-                                Администрорование</a>
+                             <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="СonfirmationDriverPage">
+                                Заявки на водителя</a>
+                            <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="BadDriverPage">
+                                Водители с низким рейтингом</a>
+                            <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="BlockDriverPage">
+                                Заблокированные водители</a>
                             }
 
                             <a class="navbar-brand left" asp-area="" asp-controller="User"
                                 asp-action="Registration">Редактировать</a>
-                            <a class="navbar-brand exit left" asp-area="" asp-controller="User"
+                            @*<a class="navbar-brand exit left" asp-area="" asp-controller="User"
                                 asp-action="LogOut">Выйти из
-                                аккаунта</a>
+                                аккаунта</a>*@
                         </div>
 
 
@@ -197,8 +200,8 @@
                                                     alt="Profile Picture">
                                             </div>
                                             <div class="jobs_conetent">
-                                                <a>
-                                                    <h4>Водитель: <a> @item.IdRoutNavigation.IdUserNavigation.Fulname</a></h4>
+                                                <a asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdRoutNavigation.IdUserNavigation.IdUsers">
+                                                    <h4>@item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
                                                 </a>
                                                 <div class="flexwrap links_locat d-flex align-items-center">
                                                     <div class="location">
@@ -266,8 +269,8 @@
                                                     alt="Profile Picture">
                                             </div>
                                             <div class="jobs_conetent">
-                                                <a>
-                                                    <h4>Водитель: @item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
+                                                <a asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdRoutNavigation.IdUserNavigation.IdUsers">
+                                                    <h4>@item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
                                                 </a>
                                                 <div class="flexwrap links_locat d-flex align-items-center">
                                                     <div class="location">
@@ -339,8 +342,8 @@
                                                     alt="Profile Picture">
                                             </div>
                                             <div class="jobs_conetent">
-                                                <a>
-                                                    <h4>Водитель: @item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
+                                                <a asp-action="UserPage" asp-controller="User" asp-route-id="@item.IdRoutNavigation.IdUserNavigation.IdUsers">
+                                                    <h4> @item.IdRoutNavigation.IdUserNavigation.Fulname</h4>
                                                 </a>
                                                 <div class="flexwrap links_locat d-flex align-items-center">
                                                     <div class="location">

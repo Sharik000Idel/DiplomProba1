@@ -1,7 +1,4 @@
-﻿
-
-
-<div class="descript">
+﻿<div class="descript">
 <table class="table mar120_40">
     <thead>
       <tr>
@@ -28,10 +25,12 @@
                         <td><img class="car_img" src="@user.Car.CarImageNavigation.Photo"></td>
                         <td>
                             <div class="myflex-column">
-                                <a asp-action="ResponseDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3" asp-route-status="2">Одобрить</a>
-                                <a asp-action="ResponseDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3 bg_red" asp-route-status="1">Отказать</a>
+                                <a asp-action="DeleteDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3" asp-route-status="6">Предупреждение</a>
+                                <a asp-action="DeleteDriver"  asp-route-id="@user.IdUsers" class="boxed-btn3 bg_red" asp-route-status="5">Заблокировать</a>
                             </div>
+                            
                         </td>
+                       
                     </tr>
                 }
                 

@@ -93,11 +93,13 @@
                     @if (ViewBag.UserInfo.IdRole == 3)
                     {
                     <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="СonfirmationDriverPage">
-                        Администрорование</a>
+                        Заявки на водителя</a>
+                    <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="BadDriverPage">
+                        Водители с низким рейтингом</a>
+                    <a class="navbar-brand left" asp-area="" asp-controller="Admin" asp-action="BlockDriverPage">
+                        Заблокированные водители</a>
                     }
 
-                    <a class="navbar-brand left" asp-area="" asp-controller="User"
-                        asp-action="Registration">Редактировать</a>
                     <a class="navbar-brand exit left" asp-area="" asp-controller="User" asp-action="LogOut">Выйти из
                         аккаунта</a>
                 </div>
